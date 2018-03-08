@@ -54,6 +54,28 @@ static int cmd_si(char *args){
   return 0;
 }
 
+static int cmd_info(char *args){
+  if (args == NULL) return -1;
+	if (args[0] == 'r')
+	{
+		printf("EAX		0x%x\n",cpu.eax);
+		printf("ECX		0x%x\n",cpu.ecx);
+		printf("EDX		0x%x\n",cpu.edx);
+		printf("EBX		0x%x\n",cpu.ebx);
+		printf("ESP		0x%x\n",cpu.esp);
+		printf("EBP		0x%x\n",cpu.ebp);
+		printf("ESI		0x%x\n",cpu.esi);
+		printf("EDI		0x%x\n",cpu.edi);
+
+//		for (int i=R_AX;i<=R_DI;i++)
+	}
+//	else
+//		if (args[0] == 'w')
+//  	{
+//  	}
+  return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -63,7 +85,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "'si [N]': Execute the program for N steps and then stop. The default value of N is 1", cmd_si },
-  /* TODO: Add more commands */
+	{"info", "r: Print the infomation of states of registers. w: Print the information of states of watchpoints", cmd_info },
+	/* TODO: Add more commands */
 
 };
 

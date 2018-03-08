@@ -70,7 +70,6 @@ static int cmd_info(char *args){
 		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%08x\n",regsl[i],reg_l(i));
 		for (int i=R_AX;i<=R_DI;i++) printf("%s		0x%04x\n",regsw[i],reg_w(i));
 		for (int i=R_AL;i<=R_BH;i++) printf("%s		0x%02x\n",regsb[i],reg_b(i));
-//		for (int i=R_AX;i<=R_DI;i++)
 	}
 //	else
 //		if (args[0] == 'w')

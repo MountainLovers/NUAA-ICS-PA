@@ -58,7 +58,7 @@ static int cmd_info(char *args){
   if (args == NULL) return -1;
 	if (args[0] == 'r')
 	{
-		printf("EAX		0x%x\n",cpu.eax);
+/*		printf("EAX		0x%x\n",cpu.eax);
 		printf("ECX		0x%x\n",cpu.ecx);
 		printf("EDX		0x%x\n",cpu.edx);
 		printf("EBX		0x%x\n",cpu.ebx);
@@ -66,10 +66,10 @@ static int cmd_info(char *args){
 		printf("EBP		0x%x\n",cpu.ebp);
 		printf("ESI		0x%x\n",cpu.esi);
 		printf("EDI		0x%x\n",cpu.edi);
-
-		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%x\n",regsl[i],reg_l(i));
-		for (int i=R_AX;i<=R_DI;i++) printf("%s		0x%x\n",regsw[i],reg_w(i));
-		for (int i=R_AL;i<=R_BH;i++) printf("%s		0x%x\n",regsb[i],reg_b(i));
+*/
+		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%08x\n",regsl[i],reg_l(i));
+		for (int i=R_AX;i<=R_DI;i++) printf("%s		0x%04x\n",regsw[i],reg_w(i));
+		for (int i=R_AL;i<=R_BH;i++) printf("%s		0x%02x\n",regsb[i],reg_b(i));
 //		for (int i=R_AX;i<=R_DI;i++)
 	}
 //	else

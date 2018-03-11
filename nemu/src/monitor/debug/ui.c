@@ -39,7 +39,7 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args){
-  uint64_t N = 0;
+  int N = 0;
   if (args == NULL) N = 1;
   else 
 	{

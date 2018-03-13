@@ -76,7 +76,7 @@ static int cmd_info(char *args){
 		printf("ESI		0x%x\n",cpu.esi);
 		printf("EDI		0x%x\n",cpu.edi);
 */
-		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%08x\n",regsl[i],reg_l(i));
+		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%08x		%d\n",regsl[i],reg_l(i),vaddr_read(reg_l(i),32));
 //		for (int i=R_AX;i<=R_DI;i++) printf("%s		0x%04x\n",regsw[i],reg_w(i));
 //		for (int i=R_AL;i<=R_BH;i++) printf("%s		0x%02x\n",regsb[i],reg_b(i));
 	}

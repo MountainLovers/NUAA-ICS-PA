@@ -49,7 +49,11 @@ static int cmd_si(char *args){
 		int len = strlen(arg);
     for (int p=0;p<len;p++)
 		{
-			if (arg[p]<'0' || arg[p]>'9') return -1;
+			if (arg[p]<'0' || arg[p]>'9')
+			{
+				printf("Please enter 1~9\n");
+				return -1;
+			}
 			N = N*10+(arg[p]-'0');
 		}
   }

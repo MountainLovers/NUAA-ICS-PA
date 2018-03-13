@@ -58,8 +58,10 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
-  if (args == NULL) return -1;
-	if (args[0] == 'r')
+	char *arg = strtok(NULL, " ");
+
+  if (arg == NULL) return -1;
+	if (arg[0] == 'r')
 	{
 /*		printf("EAX		0x%x\n",cpu.eax);
 		printf("ECX		0x%x\n",cpu.ecx);

@@ -95,7 +95,9 @@ static int cmd_x(char *args){
 		printf("There are no arguments!\n");
 		return -1;
 	}
-	printf("%s\n",arg);
+	unsigned int N = atoi(arg);
+	arg = strtok(NULL, " ");
+	printf("%d %s\n",N,arg);
 	return 0;
 }
 

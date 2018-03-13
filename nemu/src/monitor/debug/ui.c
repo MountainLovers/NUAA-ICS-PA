@@ -76,8 +76,8 @@ static int cmd_info(char *args){
 		printf("ESI		0x%x\n",cpu.esi);
 		printf("EDI		0x%x\n",cpu.edi);
 */
-		printf("Reg		HEX       		DEC\n");
-		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%08x		%d\n",regsl[i],reg_l(i),reg_l(i));
+		printf("Reg		HEX     		DEC\n");
+		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%06x		%d\n",regsl[i],reg_l(i),reg_l(i));
 //		for (int i=R_AX;i<=R_DI;i++) printf("%s		0x%04x\n",regsw[i],reg_w(i));
 //		for (int i=R_AL;i<=R_BH;i++) printf("%s		0x%02x\n",regsb[i],reg_b(i));
 	}
@@ -86,6 +86,17 @@ static int cmd_info(char *args){
 //  	{
 //  	}
   return 0;
+}
+
+static int cmd_x(char *args){
+	char *arg = strtok(NULL, " ");
+	if (arg == NULL) 
+	{
+		printf("There are no arguments!\n");
+		return -1;
+	}
+	printf("%s\n",arg);
+	return 0;
 }
 
 static struct {
@@ -98,6 +109,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "'si [N]': Execute the program for N steps and then stop. The default value of N is 1", cmd_si },
 	{"info", "r: Print the infomation of states of registers. w: Print the information of states of watchpoints", cmd_info },
+	{"x", "'x N EXPR' means print value of address from EXPR lasting N*4 Bytes", cmd_x },
 	/* TODO: Add more commands */
 
 };

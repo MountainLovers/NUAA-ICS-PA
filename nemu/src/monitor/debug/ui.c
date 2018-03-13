@@ -39,15 +39,18 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args){
-  int N = 0;
-  if (args == NULL) N = 1;
+  
+	uint64_t N = 0;
+  char *arg = strtok(NULL, " ");
+
+	if (arg == NULL) N = 1;
   else 
 	{
-		int len = strlen(args);
+		int len = strlen(arg);
     for (int p=0;p<len;p++)
 		{
-			if (args[p]<'0' || args[p]>'9') return -1;
-			N = N*10+(args[p]-'0');
+			if (arg[p]<'0' || arg[p]>'9') return -1;
+			N = N*10+(arg[p]-'0');
 		}
   }
   cpu_exec(N);

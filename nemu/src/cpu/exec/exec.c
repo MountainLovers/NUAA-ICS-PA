@@ -237,9 +237,9 @@ void exec_wrapper(bool print_flag) {
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
   strcat(decoding.asm_buf, decoding.assembly);
   Log_write("%s\n", decoding.asm_buf);
-  if (print_flag) {
-    puts(decoding.asm_buf);
-  }
+//  if (print_flag) {
+//    puts(decoding.asm_buf);
+//  }
 #endif
 
 #ifdef DIFF_TEST

@@ -95,10 +95,17 @@ static int cmd_x(char *args){
 		printf("There are no arguments!\n");
 		return -1;
 	}
-	unsigned int N = atoi(arg);
+	int N = atoi(arg);
 	arg = strtok(NULL, " ");
-
-	printf("%d %s\n",N,arg);
+  uint32_t addr;
+	sscanf(arg, "0x%x", &addr);
+	int i;
+	for (i=1;i<=N;i++)
+	{
+		printf("0x%x		%x\n", addr, vaddr_read(addr, 32));
+		addr += 4;
+	}
+//	printf("%d %s\n",N,arg);
 	return 0;
 }
 

@@ -47,6 +47,15 @@ static int cmd_si(char *args){
   else 
 	{
 		int len = strlen(arg);
+		if (arg[0] == '-')
+		{
+			if (len == 2 && arg[1] == '1')
+			{
+				cpu_exec(-1);
+				return 0;
+			}	
+			return -1;
+		}
     for (int p=0;p<len;p++)
 		{
 			if (arg[p]<'0' || arg[p]>'9')
@@ -57,6 +66,8 @@ static int cmd_si(char *args){
 			N = N*10+(arg[p]-'0');
 		}
   }
+	if (!N) N = 1;
+
   cpu_exec(N);
   return 0;
 }

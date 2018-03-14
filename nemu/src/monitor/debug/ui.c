@@ -95,7 +95,14 @@ static int cmd_x(char *args){
 		printf("There are no arguments!\n");
 		return -1;
 	}
-	int N = atoi(arg);
+	int N = 0;
+	N = atoi(arg);
+	if (N == 0)
+	{
+		printf("Please check arguments\n");
+		return -1;
+	}
+	
 	arg = strtok(NULL, " ");
   uint32_t addr;
 	if (!sscanf(arg, "0x%x", &addr))

@@ -55,14 +55,14 @@ static int cmd_si(char *args){
 				return 0;
 			}
 			printf("Invalid Argument\n");	
-			return -1;
+			return 0;
 		}
     for (int p=0;p<len;p++)
 		{
 			if (arg[p]<'0' || arg[p]>'9')
 			{
 				printf("Please enter 1~9\n");
-				return -1;
+				return 0;
 			}
 			N = N*10+(arg[p]-'0');
 		}
@@ -76,7 +76,11 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
 	char *arg = strtok(NULL, " ");
 
-  if (arg == NULL) return -1;
+  if (arg == NULL) 
+	{
+		printf("Please enter the arguments('r' or 'w')\n");
+		return 0;
+	}
 	if (arg[0] == 'r')
 	{
 /*		printf("EAX		0x%x\n",cpu.eax);
@@ -105,14 +109,14 @@ static int cmd_x(char *args){
 	if (arg == NULL) 
 	{
 		printf("There are no arguments!\n");
-		return -1;
+		return 0;
 	}
 	int N = 0;
 	N = atoi(arg);
 	if (N <= 0)
 	{
 		printf("Please check arguments\n");
-		return -1;
+		return 0;
 	}
 	
 	arg = strtok(NULL, " ");
@@ -120,7 +124,7 @@ static int cmd_x(char *args){
 	if (!sscanf(arg, "0x%x", &addr))
 	{
 		printf("Please check arguments\n");
-		return -1;
+		return 0;
 	}
 
 	int i;

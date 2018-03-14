@@ -97,6 +97,7 @@ static int cmd_x(char *args){
 	}
 	unsigned int N = atoi(arg);
 	arg = strtok(NULL, " ");
+
 	printf("%d %s\n",N,arg);
 	return 0;
 }

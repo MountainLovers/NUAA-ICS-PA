@@ -132,10 +132,10 @@ static int cmd_x(char *args){
 	{
 		uint32_t value = vaddr_read(addr, 4);
 		printf("0x%x	", addr);
-		printf("%02x ", value & 0x000000FF);
-		printf("%02x ", value & 0x0000FF00);
-		printf("%02x ", value & 0x00FF0000);
-		printf("%02x	", value & 0xFF000000);
+		printf("%2x ", value & 0x000000FF);
+		printf("%2x ", value & 0x0000FF00);
+		printf("%2x ", value & 0x00FF0000);
+		printf("%2x	", value & 0xFF000000);
 		printf("0x%08x\n", value);
 		addr += 4;
 	}

@@ -53,7 +53,8 @@ static int cmd_si(char *args){
 			{
 				cpu_exec(-1);
 				return 0;
-			}	
+			}
+			printf("Invalid Argument\n");	
 			return -1;
 		}
     for (int p=0;p<len;p++)

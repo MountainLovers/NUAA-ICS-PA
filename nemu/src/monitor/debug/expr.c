@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX
+  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REGU, TK_REG, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT
 
   /* TODO: Add more token types */
 
@@ -25,15 +25,23 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
 	{"0x[a-fA-f0-9]{1,8}", TK_HEX},		// HEX number
 	{"[0-9]{1,10}", TK_DEC},			// DEC number
-	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))"},		// Reg Regex
-  {"\\+", '+'},         // plus
+	{"\\*\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REGU},		// Reg Regex use
+	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REG},		// Reg Regex
+	//TODO:variable such as "len"
+	{"\\(", '('},				// left parenthese
+	{"\\)", ')'},				// right parenthese
+	{"--", TK_MIMI},		// unary operator --
+	{"\\+\\+", TK_PLPL},		// unary operator ++
   {"==", TK_EQ},        // equal
+	{"!=", TK_UEQ},				// unequal
+	{"&&", TK_AND},				// and
+	{"\\|\\|", TK_OR},		// or
+	{"![^=]", TK_NOT},		// not
+	{"\\+", '+'},         // plus
 	{"-", '-'},					// minus
 	{"\\*", '*'},					// multiply
 	{"/", '/'},					// divided
 	{"%", '%'},					// mod
-	{"\\(", '('},				// left parenthese
-	{"\\)", ')'}				// right parenthese
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )

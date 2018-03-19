@@ -23,16 +23,17 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
+	{"0x[a-fA-f0-9]{1,8}", TK_HEX},		// HEX number
+	{"[0-9]{1,10}", TK_DEC},			// DEC number
+	{"\\$(e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h])"},		// Reg Regex
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
 	{"-", '-'},					// minus
 	{"\\*", '*'},					// multiply
 	{"/", '/'},					// divided
 	{"%", '%'},					// mod
-	{"[0-9]{1,10}", TK_DEC},			// DEC number
-	{"0x[a-fA-f0-9]{1,8}", TK_HEX},		// HEX number
 	{"\\(", '('},				// left parenthese
-	{"\\)", ')'},				// right parenthese
+	{"\\)", ')'}				// right parenthese
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )

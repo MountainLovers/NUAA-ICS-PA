@@ -97,7 +97,7 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-								case TK_HEX:{tokens[i].type = TK_HEX; break;}
+								case TK_HEX:{tokens[i].type = TK_HEX; strncpy(tokens[i].str,substr_start,substr_len); break;}
 //          default: TODO();
         }
 

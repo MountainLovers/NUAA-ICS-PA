@@ -184,12 +184,13 @@ uint32_t value(int p, int q) {
 			int l=strlen(tokens[p].str)-1;
 			char str[32];
 			strncpy(str,tokens[p].str+1,l);
-			printf("str=%s\n",str);
 			int i,j=0;
 			for (i=0;i<l;i++) if (str[i] >= 'A' && str[i] <= 'Z') str[i]+=32;
 			if (l == 3 && !j) {
-				for (i=0;i<8;i++) 
+				for (i=0;i<8;i++) {
+					printf("%s--%s\n",str,reg32[i]);
 					if (strcmp(str,reg32[i]) == 0) {j=32; break;}
+				}
 			}
 			if (l == 2 && !j) {
 				for (i=0;i<8;i++) 

@@ -133,6 +133,8 @@ static bool make_token(char *e) {
   return true;
 }
 
+//uint32_t eval(char *e, int p, int q)
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -140,7 +142,9 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-//  TODO();
+/*  for (i = 0; i < nr_token; i++){
+		if (token[i].type == '*'
+	}*/
 
   return 0;
 }

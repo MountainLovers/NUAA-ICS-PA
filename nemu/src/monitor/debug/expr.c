@@ -180,7 +180,7 @@ uint32_t eval(int p, int q) {
 		opt_level[TK_OR] = 70;
 		int pp;
 		int lowest_level = 1000, lowest_pos = -1, parenthese_flag = 0;
-		for (pp=p;pp<=q;pp++) {
+		for (pp=p;pp<q;pp++) {
 			if (tokens[pp].type == ')') {parenthese_flag--; continue;}
 			if (tokens[pp].type == '(') {parenthese_flag++; continue;}
 			if (!parenthese_flag) continue;

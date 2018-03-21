@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REGU, TK_REG, TK_VAR, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT
+  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REGU, TK_REG, TK_VAR, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT, TK_TANHAO
 
   /* TODO: Add more token types */
 
@@ -34,10 +34,11 @@ static struct rule {
 	{"--", TK_MIMI},		// unary operator --
 	{"\\+\\+", TK_PLPL},		// unary operator ++
   {"==", TK_EQ},        // equal
-	{"!=", TK_UEQ},				// unequal
+//	{"!=", TK_UEQ},				// unequal
+	{"!", TK_TANHAO},				// tanhao
 	{"&&", TK_AND},				// and
 	{"\\|\\|", TK_OR},		// or
-	{"![^=]", TK_NOT},		// not
+//	{"![^=]", TK_NOT},		// not
 	{"\\+", '+'},         // plus
 	{"-", '-'},					// minus
 	{"\\*", '*'},					// multiply
@@ -133,7 +134,75 @@ static bool make_token(char *e) {
   return true;
 }
 
-//uint32_t eval(char *e, int p, int q)
+bool check_parentheses(int p, int q) {
+	int i;
+	if ((tokens[p].type != '(') || (tokens[q].type != ')')) return false;
+	int now_level = 0;
+	for (i = p+1; i <= q-1; i++){
+		if (tokens[i].type == '(') now_level++;
+		if (tokens[i].type == ')') now_level--;
+		if (now_level < 0) return false;
+	}
+	if (now_level != 0) return false;
+	return true;
+}
+
+uint32_t eval(int p, int q) {
+	if (p > q) {
+		printf("Bad expression!\n");
+		assert(0);
+	}
+	else if (p == q) {
+		// DEC or HEX
+		uint32_t v;
+		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
+		if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%x", &v); return v;}
+		assert(0);
+	}
+	else if (check_parentheses(p, q) == true) {
+		return eval(p+1, q-1);
+	}
+	else {
+		int opt_level[300];
+//		opt_level[TK_NOT] = 120;
+		opt_level['+'] = 100;
+		opt_level['-'] = 100;
+		opt_level['*'] = 110;
+		opt_level['/'] = 110;
+		opt_level['%'] = 110;
+		opt_level[TK_EQ] = 90;
+//		opt_level[TK_UEQ] = 90;
+		opt_level[TK_AND] = 80;
+		opt_level[TK_OR] = 70;
+		int pp;
+		int lowest_level = 100, lowest_pos = -1, parenthese_flag = 0;
+		for (pp=p;pp<=q;pp++) {
+			if (tokens[pp].type == ')') {parenthese_flag--; continue;}
+			if (tokens[pp].type == '(') {parenthese_flag++; continue;}
+			if (!parenthese_flag) continue;
+			if (opt_level[tokens[pp].type] <= lowest_level) {
+							lowest_level = opt_level[tokens[pp].type];
+							lowest_pos = pp;
+			}
+		}
+
+		uint32_t val1 = eval(p, lowest_pos-1);
+		uint32_t val2 = eval(lowest_pos+1, q);
+
+		switch (tokens[lowest_pos].type) {
+			case '+': return val1 + val2;
+			case '-': return val1 - val2;
+			case '*': return val1 * val2;
+			case '/': return val1 / val2;
+			case '%': return val1 % val2;
+			case TK_EQ: return val1 == val2;
+//			case TK_UEQ: return val1 != val2;
+			case TK_AND: return val1 && val2;
+			case TK_OR: return val1 || val2;
+			default: assert(0);
+		}
+	}
+}
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {

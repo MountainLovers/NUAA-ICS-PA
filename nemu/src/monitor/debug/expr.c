@@ -25,7 +25,7 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
 	{"0x[a-fA-f0-9]{1,8}", TK_HEX},		// HEX number
 	{"[0-9]{1,10}", TK_DEC},			// DEC number
-	{"\\*\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REGU},		// Reg Regex use
+//	{"\\*\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REGU},		// Reg Regex use
 	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REG},		// Reg Regex
 	//TODO:variable such as "len"
 	{"[a-zA-Z_][a-zA-Z0-9_]*", TK_VAR},							// variable such as "len"

@@ -92,7 +92,7 @@ static bool make_token(char *e) {
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s----%d",
             i, rules[i].regex, position, substr_len, substr_len, substr_start,rules[i].token_type);
         position += substr_len;
-				nr_token++;
+			
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
@@ -104,23 +104,23 @@ static bool make_token(char *e) {
 								case TK_REGU: {tokens[i].type = TK_REGU; strncpy(tokens[i].str,substr_start,substr_len); break;}
 								case TK_REG: {tokens[i].type = TK_REG; strncpy(tokens[i].str,substr_start,substr_len); break;}
 								case TK_VAR: {tokens[i].type = TK_VAR; strncpy(tokens[i].str,substr_start,substr_len); break;}
-								case '(': {tokens[i].type = '('; break;}
-								case ')': {tokens[i].type = ')'; break;}
-								case TK_MIMI: {tokens[i].type = TK_MIMI; break;}
-								case TK_PLPL: {tokens[i].type = TK_PLPL; break;}
-								case TK_EQ: {tokens[i].type = TK_EQ; break;}
-								case TK_UEQ: {tokens[i].type = TK_UEQ; break;}
-								case TK_AND: {tokens[i].type = TK_AND; break;}	 
-								case TK_OR: {tokens[i].type = TK_OR; break;}
-								case TK_NOT: {tokens[i].type = TK_NOT; break;}
-								case '+': {tokens[i].type = '+'; break;}
-								case '-': {tokens[i].type = '-'; break;}
-								case '*': {tokens[i].type = '*'; break;}
-								case '/': {tokens[i].type = '/'; break;}
-								case '%': {tokens[i].type = '%'; break;}
+								case '(': {tokens[nr_token].type = '('; break;}
+								case ')': {tokens[nr_token].type = ')'; break;}
+								case TK_MIMI: {tokens[nr_token].type = TK_MIMI; break;}
+								case TK_PLPL: {tokens[nr_token].type = TK_PLPL; break;}
+								case TK_EQ: {tokens[nr_token].type = TK_EQ; break;}
+								case TK_UEQ: {tokens[nr_token].type = TK_UEQ; break;}
+								case TK_AND: {tokens[nr_token].type = TK_AND; break;}	 
+								case TK_OR: {tokens[nr_token].type = TK_OR; break;}
+								case TK_NOT: {tokens[nr_token].type = TK_NOT; break;}
+								case '+': {tokens[nr_token].type = '+'; break;}
+								case '-': {tokens[nr_token].type = '-'; break;}
+								case '*': {tokens[nr_token].type = '*'; break;}
+								case '/': {tokens[nr_token].type = '/'; break;}
+								case '%': {tokens[nr_token].type = '%'; break;}
 //          default: TODO();
         }
-
+				nr_token++;
         break;
       }
     }

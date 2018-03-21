@@ -209,7 +209,8 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+	
+	printf("%d\n",eval(0, nr_token-1));
   /* TODO: Insert codes to evaluate the expression. */
 /*  for (i = 0; i < nr_token; i++){
 		if (token[i].type == '*'

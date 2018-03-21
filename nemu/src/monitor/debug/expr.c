@@ -178,9 +178,9 @@ uint32_t value(int p, int q) {
 		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
 		if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%x", &v); return v;}
 	  if (tokens[p].type == TK_REG) {	
-		  const char *reg32[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
-		  const char *reg16[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
-	 		const char *reg8[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};	 
+		  char *reg32[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
+		  char *reg16[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
+	 		char *reg8[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};	 
 			int l=strlen(tokens[p].str)-1;
 			char str[32];
 			strncpy(str,tokens[p].str+1,l);

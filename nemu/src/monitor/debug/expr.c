@@ -131,7 +131,7 @@ static bool make_token(char *e) {
     }
   }
 
-	for (i=0;i<nr_token;i++) printf("tokens[%d].type=%d\n",i,tokens[i].type);
+//	for (i=0;i<nr_token;i++) printf("tokens[%d].type=%d\n",i,tokens[i].type);
 
   return true;
 }
@@ -192,7 +192,6 @@ uint32_t eval(int p, int q) {
 
 		uint32_t val1 = eval(p, lowest_pos-1);
 		uint32_t val2 = eval(lowest_pos+1, q);
-		printf("val1=%d val2=%d\n",val1,val2);
 		switch (tokens[lowest_pos].type) {
 			case '+': return val1 + val2;
 			case '-': return val1 - val2;

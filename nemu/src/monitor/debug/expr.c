@@ -188,7 +188,7 @@ uint32_t value(int p, int q) {
 			for (i=0;i<l;i++) if (str[i] >= 'A' && str[i] <= 'Z') str[i]+=32;
 			if (l == 3 && !j) {
 				for (i=0;i<8;i++) {
-					printf("%s--%s\n",str,reg32[i]);
+					printf("%s--%s--%d\n",str,reg32[i],strcmp(str,reg32[i]));
 					if (strcmp(str,reg32[i]) == 0) {j=32; break;}
 				}
 			}

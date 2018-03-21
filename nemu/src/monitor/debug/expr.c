@@ -177,6 +177,8 @@ uint32_t eval(int p, int q) {
 		opt_level['/'] = 110;
 		opt_level['%'] = 110;
 		opt_level[TK_EQ] = 90;
+		opt_level[TK_DEC] = 10000;
+		opt_level[TK_HEX] = 10000;
 //		opt_level[TK_UEQ] = 90;
 		opt_level[TK_AND] = 80;
 		opt_level[TK_OR] = 70;

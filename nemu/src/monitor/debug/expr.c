@@ -148,7 +148,7 @@ bool check_parentheses(int p, int q) {
 	return true;
 }
 
-uint32_t eval(int p, int q) {
+uint32_t value(int p, int q) {
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);
@@ -161,7 +161,7 @@ uint32_t eval(int p, int q) {
 		assert(0);
 	}
 	else if (check_parentheses(p, q) == true) {
-		return eval(p+1, q-1);
+		return value(p+1, q-1);
 	}
 	else {
 		int opt_level[300];
@@ -189,8 +189,8 @@ uint32_t eval(int p, int q) {
 			}
 		}
 
-		uint32_t val1 = eval(p, lowest_pos-1);
-		uint32_t val2 = eval(lowest_pos+1, q);
+		uint32_t val1 = value(p, lowest_pos-1);
+		uint32_t val2 = value(lowest_pos+1, q);
 		switch (tokens[lowest_pos].type) {
 			case '+': return val1 + val2;
 			case '-': return val1 - val2;
@@ -211,7 +211,7 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-	printf("%d\n",eval(0, nr_token-1));
+	printf("%d\n",value(0, nr_token-1));
   /* TODO: Insert codes to evaluate the expression. */
 
   return 0;

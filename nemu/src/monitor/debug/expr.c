@@ -159,6 +159,7 @@ uint32_t eval(int p, int q) {
 //		printf("p == q\n");
 		// DEC or HEX
 		uint32_t v;
+		printf("type=%d str=%s\n",tokens[p].type,tokens[p].str);
 		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
 		if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%x", &v); return v;}
 		assert(0);

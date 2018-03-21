@@ -150,7 +150,7 @@ bool check_parentheses(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-//	printf("abcdefg!@#    p=%d   q=%d\n",p,q);
+	printf("abcdefg!@#    p=%d   q=%d\n",p,q);
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);
@@ -168,7 +168,7 @@ uint32_t eval(int p, int q) {
 		return eval(p+1, q-1);
 	}
 	else {
-//		printf("jisuan\n");
+		printf("jisuan\n");
 		int opt_level[300];
 //		opt_level[TK_NOT] = 120;
 		opt_level['+'] = 100;

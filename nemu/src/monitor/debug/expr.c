@@ -184,6 +184,7 @@ uint32_t value(int p, int q) {
 			int l=strlen(tokens[p].str)-1;
 			char str[32];
 			strncpy(str,tokens[p].str+1,l);
+			str[l]='\0';
 			int i,j=0;
 			for (i=0;i<l;i++) if (str[i] >= 'A' && str[i] <= 'Z') str[i]+=32;
 			if (l == 3 && !j) {

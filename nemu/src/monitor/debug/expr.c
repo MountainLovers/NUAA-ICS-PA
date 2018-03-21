@@ -99,28 +99,27 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-								case TK_HEX: {tokens[nr_token].type = TK_HEX; strncpy(tokens[nr_token].str,substr_start,substr_len); break;}
-								case TK_DEC: {tokens[nr_token].type = TK_DEC; strncpy(tokens[nr_token].str,substr_start,substr_len); break;}
-								case TK_REGU: {tokens[nr_token].type = TK_REGU; strncpy(tokens[nr_token].str,substr_start,substr_len); break;}
-								case TK_REG: {tokens[nr_token].type = TK_REG; strncpy(tokens[nr_token].str,substr_start,substr_len); break;}
-								case TK_VAR: {tokens[nr_token].type = TK_VAR; strncpy(tokens[nr_token].str,substr_start,substr_len); break;}
-								case '(': {tokens[nr_token].type = '('; break;}
-								case ')': {tokens[nr_token].type = ')'; break;}
-								case TK_MIMI: {tokens[nr_token].type = TK_MIMI; break;}
-								case TK_PLPL: {tokens[nr_token].type = TK_PLPL; break;}
-								case TK_EQ: {tokens[nr_token].type = TK_EQ; break;}
-								case TK_UEQ: {tokens[nr_token].type = TK_UEQ; break;}
-								case TK_AND: {tokens[nr_token].type = TK_AND; break;}	 
-								case TK_OR: {tokens[nr_token].type = TK_OR; break;}
-								case TK_NOT: {tokens[nr_token].type = TK_NOT; break;}
-								case '+': {tokens[nr_token].type = '+'; break;}
-								case '-': {tokens[nr_token].type = '-'; break;}
-								case '*': {tokens[nr_token].type = '*'; break;}
-								case '/': {tokens[nr_token].type = '/'; break;}
-								case '%': {tokens[nr_token].type = '%'; break;}
+								case TK_HEX: {tokens[nr_token].type = TK_HEX; strncpy(tokens[nr_token++].str,substr_start,substr_len); break;}
+								case TK_DEC: {tokens[nr_token].type = TK_DEC; strncpy(tokens[nr_token++].str,substr_start,substr_len); break;}
+								case TK_REGU: {tokens[nr_token].type = TK_REGU; strncpy(tokens[nr_token++].str,substr_start,substr_len); break;}
+								case TK_REG: {tokens[nr_token].type = TK_REG; strncpy(tokens[nr_token++].str,substr_start,substr_len); break;}
+								case TK_VAR: {tokens[nr_token].type = TK_VAR; strncpy(tokens[nr_token++].str,substr_start,substr_len); break;}
+								case '(': {tokens[nr_token++].type = '('; break;}
+								case ')': {tokens[nr_token++].type = ')'; break;}
+								case TK_MIMI: {tokens[nr_token++].type = TK_MIMI; break;}
+								case TK_PLPL: {tokens[nr_token++].type = TK_PLPL; break;}
+								case TK_EQ: {tokens[nr_token++].type = TK_EQ; break;}
+								case TK_UEQ: {tokens[nr_token++].type = TK_UEQ; break;}
+								case TK_AND: {tokens[nr_token++].type = TK_AND; break;}	 
+								case TK_OR: {tokens[nr_token++].type = TK_OR; break;}
+								case TK_NOT: {tokens[nr_token++].type = TK_NOT; break;}
+								case '+': {tokens[nr_token++].type = '+'; break;}
+								case '-': {tokens[nr_token++].type = '-'; break;}
+								case '*': {tokens[nr_token++].type = '*'; break;}
+								case '/': {tokens[nr_token++].type = '/'; break;}
+								case '%': {tokens[nr_token++].type = '%'; break;}
 //          default: TODO();
         }
-				nr_token++;
         break;
       }
     }

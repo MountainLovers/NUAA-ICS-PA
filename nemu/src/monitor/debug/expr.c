@@ -164,7 +164,7 @@ uint32_t eval(int p, int q) {
 		assert(0);
 	}
 	else if (check_parentheses(p, q) == true) {
-//		printf("kuohao\n");
+		printf("kuohao\n");
 		return eval(p+1, q-1);
 	}
 	else {

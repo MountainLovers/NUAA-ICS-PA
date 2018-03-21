@@ -131,7 +131,7 @@ static bool make_token(char *e) {
     }
   }
 
-	for (i=0;i<10;i++) printf("tokens[%d].type=%d\n",i,tokens[i].type);
+	for (i=0;i<nr_token;i++) printf("tokens[%d].type=%d\n",i,tokens[i].type);
 
   return true;
 }
@@ -150,13 +150,13 @@ bool check_parentheses(int p, int q) {
 }
 
 uint32_t eval(int p, int q) {
-	printf("abcdefg!@#    p=%d   q=%d\n",p,q);
+//	printf("abcdefg!@#    p=%d   q=%d\n",p,q);
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);
 	}
 	else if (p == q) {
-		printf("p == q\n");
+//		printf("p == q\n");
 		// DEC or HEX
 		uint32_t v;
 		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
@@ -164,11 +164,11 @@ uint32_t eval(int p, int q) {
 		assert(0);
 	}
 	else if (check_parentheses(p, q) == true) {
-		printf("kuohao\n");
+//		printf("kuohao\n");
 		return eval(p+1, q-1);
 	}
 	else {
-		printf("jisuan\n");
+//		printf("jisuan\n");
 		int opt_level[300];
 //		opt_level[TK_NOT] = 120;
 		opt_level['+'] = 100;
@@ -185,11 +185,11 @@ uint32_t eval(int p, int q) {
 		int pp;
 		int lowest_level = 1000, lowest_pos = -1, parenthese_flag = 0;
 		for (pp=p;pp<q;pp++) {
-			printf("tokens[%d].type=%d\n",pp,tokens[pp].type);
+//			printf("tokens[%d].type=%d\n",pp,tokens[pp].type);
 			if (tokens[pp].type == ')') {parenthese_flag--; continue;}
 			if (tokens[pp].type == '(') {parenthese_flag++; continue;}
 			if (parenthese_flag) continue;
-			printf("tokens[%d].type=%d  opt=%d  low=%d\n",pp,tokens[pp].type,opt_level[tokens[pp].type],lowest_level);
+//			printf("tokens[%d].type=%d  opt=%d  low=%d\n",pp,tokens[pp].type,opt_level[tokens[pp].type],lowest_level);
 			if (opt_level[tokens[pp].type] <= lowest_level) {
 							lowest_level = opt_level[tokens[pp].type];
 							lowest_pos = pp;

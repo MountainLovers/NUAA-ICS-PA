@@ -99,11 +99,11 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-								case TK_HEX: {tokens[i].type = TK_HEX; strncpy(tokens[i].str,substr_start,substr_len); break;}
-								case TK_DEC: {tokens[i].type = TK_DEC; strncpy(tokens[i].str,substr_start,substr_len); break;}
-								case TK_REGU: {tokens[i].type = TK_REGU; strncpy(tokens[i].str,substr_start,substr_len); break;}
-								case TK_REG: {tokens[i].type = TK_REG; strncpy(tokens[i].str,substr_start,substr_len); break;}
-								case TK_VAR: {tokens[i].type = TK_VAR; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_HEX: {tokens[nr_token].type = TK_HEX; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_DEC: {tokens[nr_token].type = TK_DEC; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_REGU: {tokens[nr_token].type = TK_REGU; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_REG: {tokens[nr_token].type = TK_REG; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_VAR: {tokens[nr_token].type = TK_VAR; strncpy(tokens[i].str,substr_start,substr_len); break;}
 								case '(': {tokens[nr_token].type = '('; break;}
 								case ')': {tokens[nr_token].type = ')'; break;}
 								case TK_MIMI: {tokens[nr_token].type = TK_MIMI; break;}

@@ -156,7 +156,6 @@ uint32_t eval(int p, int q) {
 		assert(0);
 	}
 	else if (p == q) {
-//		printf("p == q\n");
 		// DEC or HEX
 		uint32_t v;
 		printf("type=%d str=%s\n",tokens[p].type,tokens[p].str);
@@ -165,11 +164,9 @@ uint32_t eval(int p, int q) {
 		assert(0);
 	}
 	else if (check_parentheses(p, q) == true) {
-		printf("kuohao\n");
 		return eval(p+1, q-1);
 	}
 	else {
-		printf("jisuan\n");
 		int opt_level[300];
 //		opt_level[TK_NOT] = 120;
 		opt_level['+'] = 100;
@@ -186,11 +183,9 @@ uint32_t eval(int p, int q) {
 		int pp;
 		int lowest_level = 1000, lowest_pos = -1, parenthese_flag = 0;
 		for (pp=p;pp<=q;pp++) {
-//			printf("tokens[%d].type=%d\n",pp,tokens[pp].type);
 			if (tokens[pp].type == ')') {parenthese_flag--; continue;}
 			if (tokens[pp].type == '(') {parenthese_flag++; continue;}
 			if (parenthese_flag) continue;
-//			printf("tokens[%d].type=%d  opt=%d  low=%d\n",pp,tokens[pp].type,opt_level[tokens[pp].type],lowest_level);
 			if (opt_level[tokens[pp].type] <= lowest_level) {
 							lowest_level = opt_level[tokens[pp].type];
 							lowest_pos = pp;
@@ -220,12 +215,8 @@ uint32_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-//	printf("nr_token=%d\n",nr_token);	
 	printf("%d\n",eval(0, nr_token-1));
   /* TODO: Insert codes to evaluate the expression. */
-/*  for (i = 0; i < nr_token; i++){
-		if (token[i].type == '*'
-	}*/
 
   return 0;
 }

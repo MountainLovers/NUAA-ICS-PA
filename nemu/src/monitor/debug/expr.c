@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REGU, TK_REG, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT
+  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REGU, TK_REG, TK_VAR, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT
 
   /* TODO: Add more token types */
 
@@ -28,6 +28,7 @@ static struct rule {
 	{"\\*\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REGU},		// Reg Regex use
 	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REG},		// Reg Regex
 	//TODO:variable such as "len"
+	{"\\w", TK_VAR},							// variable such as "len"
 	{"\\(", '('},				// left parenthese
 	{"\\)", ')'},				// right parenthese
 	{"--", TK_MIMI},		// unary operator --
@@ -97,7 +98,19 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-								case TK_HEX:{tokens[i].type = TK_HEX; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_HEX: {tokens[i].type = TK_HEX; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_DEC: {tokens[i].type = TK_DEC; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_REGU: {tokens[i].type = TK_REGU; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_REG: {tokens[i].type = TK_REG; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case TK_VAR: {tokens[i].type = TK_VAR; strncpy(tokens[i].str,substr_start,substr_len); break;}
+								case '(': {tokens[i].type = '('; break;}
+								case ')': {tokens[i].type = ')'; break;}
+								case TK_MIMI: {tokens[i].type = TK_MIMI; break;}
+								case TK_PLPL: {tokens[i].type = TK_PLPL; break;}
+								case TK_EQ: {tokens[i].type = TK_EQ; break;}
+								case TK_UEQ: {tokens[i].type = TK_UEQ; break;}
+								case TK_AND: {tokens[i].type = TK_AND; break;}	 
+
 //          default: TODO();
         }
 

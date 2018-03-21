@@ -148,6 +148,7 @@ bool check_parentheses(int p, int q) {
 	return true;
 }
 
+// normal
 uint32_t value(int p, int q) {
 	if (p > q) {
 		printf("Bad expression!\n");
@@ -205,6 +206,11 @@ uint32_t value(int p, int q) {
 		}
 	}
 }
+
+// jieyinyong he fushu
+//uint32_t eval(int p, int q) {		
+//		
+//}
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {

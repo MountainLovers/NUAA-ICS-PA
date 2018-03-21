@@ -189,6 +189,7 @@ uint32_t eval(int p, int q) {
 			if (tokens[pp].type == ')') {parenthese_flag--; continue;}
 			if (tokens[pp].type == '(') {parenthese_flag++; continue;}
 			if (!parenthese_flag) continue;
+			printf("tokens[%d].type=%d  opt=%d  low=%d\n",pp,tokens[pp].type,opt_level[tokens[pp].type],lowest_level);
 			if (opt_level[tokens[pp].type] <= lowest_level) {
 							lowest_level = opt_level[tokens[pp].type];
 							lowest_pos = pp;

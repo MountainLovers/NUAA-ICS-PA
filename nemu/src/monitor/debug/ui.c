@@ -98,7 +98,7 @@ static int cmd_info(char *args){
 
 static int cmd_x(char *args){
 	char *arg = strtok(NULL, " ");
-	if (arg == NULL) 
+ 	if (arg == NULL) 
 	{
 		printf("There are no arguments!\n");
 		return 0;
@@ -136,6 +136,13 @@ static int cmd_x(char *args){
 	return 0;
 }
 
+static int cmd_p(char *args){
+	uint8_t flag = true;
+	expr(args, &flag);
+	if (!flag) printf("make_token failed!\n");
+	return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -147,6 +154,7 @@ static struct {
   { "si", "'si [N]': Execute the program for N steps and then stop. The default value of N is 1", cmd_si },
 	{"info", "r: Print the infomation of states of registers. w: Print the information of states of watchpoints", cmd_info },
 	{"x", "'x N EXPR' means print value of address from EXPR lasting N*4 Bytes", cmd_x },
+	{"p", "'p EXPR' calculate the value of expression", cmd_p },
 	/* TODO: Add more commands */
 
 };

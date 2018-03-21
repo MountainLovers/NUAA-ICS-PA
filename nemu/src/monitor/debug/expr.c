@@ -28,7 +28,7 @@ static struct rule {
 	{"\\*\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REGU},		// Reg Regex use
 	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REG},		// Reg Regex
 	//TODO:variable such as "len"
-	{"\\w", TK_VAR},							// variable such as "len"
+	{"[a-zA-Z_][a-zA-Z0-9_]*", TK_VAR},							// variable such as "len"
 	{"\\(", '('},				// left parenthese
 	{"\\)", ')'},				// right parenthese
 	{"--", TK_MIMI},		// unary operator --
@@ -110,7 +110,13 @@ static bool make_token(char *e) {
 								case TK_EQ: {tokens[i].type = TK_EQ; break;}
 								case TK_UEQ: {tokens[i].type = TK_UEQ; break;}
 								case TK_AND: {tokens[i].type = TK_AND; break;}	 
-
+								case TK_OR: {tokens[i].type = TK_OR; break;}
+								case TK_NOT: {tokens[i].type = TK_NOT; break;}
+								case '+': {tokens[i].type = '+'; break;}
+								case '-': {tokens[i].type = '-'; break;}
+								case '*': {tokens[i].type = '*'; break;}
+								case '/': {tokens[i].type = '/'; break;}
+								case '%': {tokens[i].type = '%'; break;}
 //          default: TODO();
         }
 

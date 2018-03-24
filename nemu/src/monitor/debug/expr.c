@@ -259,11 +259,6 @@ uint32_t value(int p, int q) {
 	}
 }
 
-// jieyinyong he fushu
-//uint32_t eval(int p, int q) {		
-//		
-//}
-
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;

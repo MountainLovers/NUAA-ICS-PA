@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REGU, TK_REG, TK_VAR, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT, TK_TANHAO, TK_JYY, TK_FS
+  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REG, TK_VAR, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT, TK_TANHAO, TK_JYY, TK_FS
 
   /* TODO: Add more token types */
 
@@ -25,7 +25,6 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
 	{"0x[a-fA-f0-9]{1,8}", TK_HEX},		// HEX number
 	{"[0-9]{1,10}", TK_DEC},			// DEC number
-//	{"\\*\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REGU},		// Reg Regex use
 	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h])|eip)", TK_REG},		// Reg Regex
 	//TODO:variable such as "len"
 	{"[a-zA-Z_][a-zA-Z0-9_]*", TK_VAR},							// variable such as "len"
@@ -34,11 +33,11 @@ static struct rule {
 	{"--", TK_MIMI},		// unary operator --
 	{"\\+\\+", TK_PLPL},		// unary operator ++
   {"==", TK_EQ},        // equal
-//	{"!=", TK_UEQ},				// unequal
-	{"!", TK_TANHAO},				// tanhao
+	{"!=", TK_UEQ},				// unequal
+//	{"!", TK_TANHAO},				// tanhao
 	{"&&", TK_AND},				// and
 	{"\\|\\|", TK_OR},		// or
-//	{"![^=]", TK_NOT},		// not
+	{"!", TK_NOT},		// not
 	{"\\+", '+'},         // plus
 	{"-", '-'},					// minus
 	{"\\*", '*'},					// multiply
@@ -101,7 +100,6 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
 								case TK_HEX: {tokens[nr_token].type = TK_HEX; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
 								case TK_DEC: {tokens[nr_token].type = TK_DEC; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
-						//		case TK_REGU: {tokens[nr_token].type = TK_REGU; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
 								case TK_REG: {tokens[nr_token].type = TK_REG; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
 								case TK_VAR: {tokens[nr_token].type = TK_VAR; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
 								case '(': {tokens[nr_token++].type = '('; break;}
@@ -161,6 +159,7 @@ uint32_t eval(int p, int q) {
 			case TK_FS: {int v=value(p+1, q); return -v;}
 			case TK_MIMI: {int v=value(p+1, q); return --v;}
 			case TK_PLPL: {int v=value(p+1, q); return ++v;}	
+			case TK_NOT: {int v=value(p+1, q); return !v;}
 			default: assert(0);	
 		}
 	}	
@@ -215,7 +214,7 @@ uint32_t value(int p, int q) {
 	}
 	else {
 		int opt_level[300];
-//		opt_level[TK_NOT] = 120;
+		opt_level[TK_NOT] = 120;
 		opt_level['+'] = 100;
 		opt_level['-'] = 100;
 		opt_level['*'] = 110;
@@ -224,7 +223,7 @@ uint32_t value(int p, int q) {
 		opt_level[TK_EQ] = 90;
 		opt_level[TK_DEC] = 10000;
 		opt_level[TK_HEX] = 10000;
-//		opt_level[TK_UEQ] = 90;
+		opt_level[TK_UEQ] = 90;
 		opt_level[TK_AND] = 80;
 		opt_level[TK_OR] = 70;
 		opt_level[TK_JYY] = 500;
@@ -253,7 +252,7 @@ uint32_t value(int p, int q) {
 			case '/': return val1 / val2;
 			case '%': return val1 % val2;
 			case TK_EQ: return val1 == val2;
-//			case TK_UEQ: return val1 != val2;
+			case TK_UEQ: return val1 != val2;
 			case TK_AND: return val1 && val2;
 			case TK_OR: return val1 || val2;
 			default: assert(0);
@@ -269,8 +268,11 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
 	int i;
 	for (i = 0; i < nr_token; i ++) {
+		/*pointer explain usei *$eax*/
 		if (tokens[i].type == '*' && (i == 0 || tokens[i-1].type == '+' || tokens[i-1].type == '-' || tokens[i-1].type == '*' || tokens[i-1].type == '/' || tokens[i-1].type == '%' || tokens[i-1].type == TK_MIMI || tokens[i-1].type == TK_PLPL || tokens[i-1].type == TK_EQ || tokens[i-1].type == TK_UEQ || tokens[i-1].type == TK_AND || tokens[i-1].type == TK_OR || tokens[i-1].type == TK_NOT || tokens[i-1].type == '('))
-			tokens[i].type = TK_JYY;	
+			tokens[i].type = TK_JYY;
+		
+			
 //		printf("%d %d\n",i,tokens[i].type);
 	}
 	printf("%d\n",value(0, nr_token-1));

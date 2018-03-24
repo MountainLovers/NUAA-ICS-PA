@@ -228,6 +228,7 @@ uint32_t value(int p, int q) {
 		opt_level[TK_AND] = 80;
 		opt_level[TK_OR] = 70;
 		opt_level[TK_JYY] = 500;
+		opt_level[TK_FS] = 510;
 		int pp;
 		int lowest_level = 1000, lowest_pos = -1, parenthese_flag = 0;
 		for (pp=p;pp<=q;pp++) {
@@ -240,7 +241,7 @@ uint32_t value(int p, int q) {
 			}
 		}
 //		printf("lowest_pos=%d\n",lowest_pos);
-		if (tokens[lowest_pos].type == TK_JYY || tokens[lowest_pos].type == TK_NOT) {
+		if (tokens[lowest_pos].type == TK_JYY || tokens[lowest_pos].type == TK_NOT || tokens[lowest_pos].type == TK_FS) {
 			return eval(p, q);
 		}
 
@@ -273,7 +274,9 @@ uint32_t expr(char *e, bool *success) {
 		if (tokens[i].type == '*' && (i == 0 || tokens[i-1].type == '+' || tokens[i-1].type == '-' || tokens[i-1].type == '*' || tokens[i-1].type == '/' || tokens[i-1].type == '%' || tokens[i-1].type == TK_MIMI || tokens[i-1].type == TK_PLPL || tokens[i-1].type == TK_EQ || tokens[i-1].type == TK_UEQ || tokens[i-1].type == TK_AND || tokens[i-1].type == TK_OR || tokens[i-1].type == TK_NOT || tokens[i-1].type == '('))
 			tokens[i].type = TK_JYY;
 		
-			
+		/*-1*/
+		if (tokens[i].type == '-' && (i == 0 || tokens[i-1].type == '+' || tokens[i-1].type == '-' || tokens[i-1].type == '*' || tokens[i-1].type == '/' || tokens[i-1].type == '%' || tokens[i-1].type == TK_EQ || tokens[i-1].type == TK_UEQ || tokens[i-1].type == TK_AND || tokens[i-1].type == TK_OR || tokens[i-1].type == TK_NOT || tokens[i-1].type == '('))
+			tokens[i].type = TK_FS;
 //		printf("%d %d\n",i,tokens[i].type);
 	}
 	printf("%d\n",value(0, nr_token-1));

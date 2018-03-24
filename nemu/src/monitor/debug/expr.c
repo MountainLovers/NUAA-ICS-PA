@@ -26,7 +26,7 @@ static struct rule {
 	{"0x[a-fA-f0-9]{1,8}", TK_HEX},		// HEX number
 	{"[0-9]{1,10}", TK_DEC},			// DEC number
 //	{"\\*\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REGU},		// Reg Regex use
-	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h]))", TK_REG},		// Reg Regex
+	{"\\$((e?(ax|bx|cx|dx|bp|si|di|sp))|([a-d][l,h])|eip)", TK_REG},		// Reg Regex
 	//TODO:variable such as "len"
 	{"[a-zA-Z_][a-zA-Z0-9_]*", TK_VAR},							// variable such as "len"
 	{"\\(", '('},				// left parenthese
@@ -178,13 +178,15 @@ uint32_t value(int p, int q) {
 		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
 		if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%x", &v); return v;}
 	  if (tokens[p].type == TK_REG) {	
-		  char *reg32[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
+			char *reg32[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 		  char *reg16[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 	 		char *reg8[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};	 
 			int l=strlen(tokens[p].str)-1;
 			char str[32];
 			strncpy(str,tokens[p].str+1,l);
 			str[l]='\0';
+			char *streip = "eip";
+			if (strcmp(str, streip) == 0) return cpu.eip;
 			int i,j=0;
 			for (i=0;i<l;i++) if (str[i] >= 'A' && str[i] <= 'Z') str[i]+=32;
 			if (l == 3 && !j) {

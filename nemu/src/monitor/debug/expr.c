@@ -240,7 +240,7 @@ uint32_t value(int p, int q) {
 			}
 		}
 //		printf("lowest_pos=%d\n",lowest_pos);
-		if (tokens[lowest_pos].type == TK_JYY) {
+		if (tokens[lowest_pos].type == TK_JYY || tokens[lowest_pos].type == TK_NOT) {
 			return eval(p, q);
 		}
 

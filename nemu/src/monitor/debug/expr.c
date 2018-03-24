@@ -74,6 +74,35 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
+bool str_overflow(char *e, int *ss, int *len, int type) {
+	int s = *ss, t = (*ss)+(*len)-1;
+	if (type == TK_REG || type == TK_VAR) {
+		return false;
+	}
+	if (type == TK_DEC) {
+		while (s < t-1 && e[s] == '0') s++; 
+		if (t-s+1 <= 31) {
+			*ss=s; *len=t-s+1;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	if (type == TK_HEX) {
+		s+=2;
+		while (s < t-1 && e[s] == '0') s++;
+		if (t-s+1 <=29) {
+			*ss=s; *len=t-s+1;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	return false;
+}	
+
 static bool make_token(char *e) {
   int position = 0;
   int i;
@@ -98,10 +127,47 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-								case TK_HEX: {tokens[nr_token].type = TK_HEX; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
-								case TK_DEC: {tokens[nr_token].type = TK_DEC; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
-								case TK_REG: {tokens[nr_token].type = TK_REG; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
-								case TK_VAR: {tokens[nr_token].type = TK_VAR; strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
+								case TK_HEX: {
+									tokens[nr_token].type = TK_HEX;
+								 	if (substr_len > 31) {
+										int ss = position-substr_len, len=substr_len;
+										if (str_overflow(e,&ss,&len,TK_HEX) == true) {
+											substr_start = e+ss;
+											tokens[nr_token].str[0]='0'; tokens[nr_token].str[1]='x';
+											strncpy(tokens[nr_token++].str+2,substr_start,len);
+											tokens[nr_token-1].str[len+2]='\0';
+										}
+										else {
+											assert(0);
+										}
+									}
+									else {
+										strncpy(tokens[nr_token++].str,substr_start,substr_len);
+										tokens[nr_token-1].str[substr_len]='\0'; 
+									}
+									break;
+								}
+								case TK_DEC: {
+									tokens[nr_token].type = TK_DEC; 
+									if (substr_len > 31) {
+										int ss = position-substr_len, len=substr_len;
+										if (str_overflow(e,&ss,&len,TK_DEC) == true) {
+											substr_start = e+ss;
+											strncpy(tokens[nr_token++].str,substr_start,len);
+											tokens[nr_token-1].str[len]='\0';
+										}
+										else {
+											assert(0);
+										}
+									}
+									else {
+										strncpy(tokens[nr_token++].str,substr_start,substr_len);
+										tokens[nr_token-1].str[substr_len]='\0';
+									}	 
+									break;
+								}
+								case TK_REG: {tokens[nr_token].type = TK_REG; if (substr_len > 31) assert(0); strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
+								case TK_VAR: {tokens[nr_token].type = TK_VAR; if (substr_len > 31) assert(0); strncpy(tokens[nr_token++].str,substr_start,substr_len); tokens[nr_token-1].str[substr_len]='\0'; break;}
 								case '(': {tokens[nr_token++].type = '('; break;}
 								case ')': {tokens[nr_token++].type = ')'; break;}
 								case TK_MIMI: {tokens[nr_token++].type = TK_MIMI; break;}

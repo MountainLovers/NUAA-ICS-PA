@@ -239,7 +239,7 @@ uint32_t value(int p, int q) {
 							lowest_pos = pp;
 			}
 		}
-		printf("lowest_pos=%d\n",lowest_pos);
+//		printf("lowest_pos=%d\n",lowest_pos);
 		if (tokens[lowest_pos].type == TK_JYY) {
 			return eval(p, q);
 		}

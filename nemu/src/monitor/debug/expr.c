@@ -345,6 +345,6 @@ uint32_t expr(char *e, bool *success) {
 			tokens[i].type = TK_FS;
 //		printf("%d %d\n",i,tokens[i].type);
 	}
-	printf("%d\n",value(0, nr_token-1));
-  return 0;
+//	printf("%d\n",value(0, nr_token-1));
+  return value(0,nr_token-1);
 }

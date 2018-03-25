@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REG, TK_VAR, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT, TK_TANHAO, TK_JYY, TK_FS
+  TK_NOTYPE = 256, TK_EQ, TK_DEC, TK_HEX, TK_REG, TK_VAR, TK_MIMI, TK_PLPL, TK_UEQ, TK_AND, TK_OR, TK_NOT, TK_JYY, TK_FS
 
   /* TODO: Add more token types */
 
@@ -34,7 +34,6 @@ static struct rule {
 	{"\\+\\+", TK_PLPL},		// unary operator ++
   {"==", TK_EQ},        // equal
 	{"!=", TK_UEQ},				// unequal
-//	{"!", TK_TANHAO},				// tanhao
 	{"&&", TK_AND},				// and
 	{"\\|\\|", TK_OR},		// or
 	{"!", TK_NOT},		// not
@@ -183,7 +182,6 @@ static bool make_token(char *e) {
 								case '*': {tokens[nr_token++].type = '*'; break;}
 								case '/': {tokens[nr_token++].type = '/'; break;}
 								case '%': {tokens[nr_token++].type = '%'; break;}
-//          default: TODO();
         }
         break;
       }

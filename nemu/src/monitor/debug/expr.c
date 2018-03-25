@@ -343,8 +343,6 @@ uint32_t expr(char *e, bool *success) {
 		/*-1*/
 		if (tokens[i].type == '-' && (i == 0 || tokens[i-1].type == '+' || tokens[i-1].type == '-' || tokens[i-1].type == '*' || tokens[i-1].type == '/' || tokens[i-1].type == '%' || tokens[i-1].type == TK_EQ || tokens[i-1].type == TK_UEQ || tokens[i-1].type == TK_AND || tokens[i-1].type == TK_OR || tokens[i-1].type == TK_NOT || tokens[i-1].type == '('))
 			tokens[i].type = TK_FS;
-//		printf("%d %d\n",i,tokens[i].type);
 	}
-//	printf("%d\n",value(0, nr_token-1));
   return value(0,nr_token-1);
 }

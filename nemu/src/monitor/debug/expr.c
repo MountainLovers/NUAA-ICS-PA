@@ -192,10 +192,8 @@ static bool make_token(char *e) {
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
-    }
+     }
   }
-
-//	for (i=0;i<nr_token;i++) printf("tokens[%d].type=%d\n",i,tokens[i].type);
 
   return true;
 }
@@ -215,6 +213,7 @@ bool check_parentheses(int p, int q) {
 
 uint32_t value(int p, int q);
 
+// unary operator 
 uint32_t eval(int p, int q) {
 	if (p > q) {
 		printf("Bad expression!\n");
@@ -239,7 +238,6 @@ uint32_t value(int p, int q) {
 		assert(0);
 	}
 	else if (p == q) {
-		// DEC or HEX
 		uint32_t v;
 		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
 		if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%x", &v); return v;}
@@ -306,7 +304,7 @@ uint32_t value(int p, int q) {
 							lowest_pos = pp;
 			}
 		}
-//		printf("lowest_pos=%d\n",lowest_pos);
+
 		if (tokens[lowest_pos].type == TK_JYY || tokens[lowest_pos].type == TK_NOT || tokens[lowest_pos].type == TK_FS) {
 			return eval(p, q);
 		}

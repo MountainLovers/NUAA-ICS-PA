@@ -236,6 +236,7 @@ uint32_t value(int p, int q) {
 		assert(0);
 	}
 	else if (p == q) {
+		printf("p == q = %d\n",p);
 		uint32_t v;
 		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
 		if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%x", &v); return v;}

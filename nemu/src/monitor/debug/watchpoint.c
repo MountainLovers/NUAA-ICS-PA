@@ -70,3 +70,15 @@ bool check_wp() {
 	}
 	return false;
 }
+
+bool delete_wp(int n) {
+	WP *p = head;
+	while (p) {
+		if (p->NO == n) {
+			free_wp(p);
+			return true;
+		}
+		p = p->next;
+	}
+	return false;
+}

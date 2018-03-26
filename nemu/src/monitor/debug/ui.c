@@ -161,6 +161,14 @@ static int cmd_w(char *args) {
 	return 0;
 }
 
+extern bool delete_wp(int);
+static int cmd_d(char *args) {	
+  char *arg = strtok(NULL, " ");
+	int n = -1;
+	if (sscanf(arg, "%d", &n) == -1) {printf("Check argument!\n"); assert(0);}
+	if (delete_wp(n) == false) {printf("Delete WP failed!\n"); assert(0);}
+	return 0;
+}	
 
 static struct {
   char *name;
@@ -175,6 +183,7 @@ static struct {
 	{"x", "'x N EXPR' means print value of address from EXPR lasting N*4 Bytes", cmd_x },
 	{"p", "'p EXPR' calculate the value of expression", cmd_p },
 	{"w", "'w EXPR' set a watchpoint that program will stop when the value of expression change", cmd_w },
+	{"d", "'d N' delete the wp whose NO is N", cmd_d },
 	/* TODO: Add more commands */
 
 };

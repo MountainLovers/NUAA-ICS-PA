@@ -213,7 +213,6 @@ uint32_t value(int p, int q);
 
 // unary operator 
 uint32_t eval(int p, int q) {
-	printf("p = %d q = %d\n",p,q);
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);
@@ -232,13 +231,11 @@ uint32_t eval(int p, int q) {
 
 // normal
 uint32_t value(int p, int q) {
-	printf("v p = %d q = %d\n",p,q);
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);
 	}
 	else if (p == q) {
-		printf("p == q = %d\n",p);
 		uint32_t v;
 		if (tokens[p].type == TK_DEC) {sscanf(tokens[p].str, "%d", &v); return v;}
 		if (tokens[p].type == TK_HEX) {sscanf(tokens[p].str, "%x", &v); return v;}

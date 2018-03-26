@@ -232,6 +232,7 @@ uint32_t eval(int p, int q) {
 
 // normal
 uint32_t value(int p, int q) {
+	printf("v p = %d q = %d\n",p,q);
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);

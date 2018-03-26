@@ -110,14 +110,19 @@ static int cmd_x(char *args){
 		printf("Please check arguments\n");
 		return 0;
 	}
-	
+		
 	arg = strtok(NULL, " ");
   uint32_t addr;
-	if (!sscanf(arg, "0x%x", &addr))
+	uint8_t flag = true;
+	/*	if (!sscanf(arg, "0x%x", &addr))
 	{
 		printf("Please check arguments\n");
 		return 0;
 	}
+*/
+
+	addr = expr(arg, &flag);
+	if (flag == false) {printf("Expression is invalid.\n"); assert(0);}
   
 	printf("Address     Little-Endian     Big-Endian\n");
 	int i;

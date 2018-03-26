@@ -213,6 +213,7 @@ uint32_t value(int p, int q);
 
 // unary operator 
 uint32_t eval(int p, int q) {
+	printf("p = %d q = %d\n",p,q);
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);

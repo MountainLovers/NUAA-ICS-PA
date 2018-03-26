@@ -289,6 +289,7 @@ uint32_t value(int p, int q) {
 		opt_level[TK_EQ] = 90;
 		opt_level[TK_DEC] = 10000;
 		opt_level[TK_HEX] = 10000;
+		opt_level[TK_REG] = 10000;
 		opt_level[TK_UEQ] = 90;
 		opt_level[TK_AND] = 80;
 		opt_level[TK_OR] = 70;

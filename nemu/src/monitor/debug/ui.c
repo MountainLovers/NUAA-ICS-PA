@@ -136,13 +136,26 @@ static int cmd_x(char *args){
 	return 0;
 }
 
-static int cmd_p(char *args){
+static int cmd_p(char *args) {
 	uint8_t flag = true;
 	uint32_t v = expr(args, &flag);
 	if (!flag) printf("make_token failed!\n");
 	else printf("result = %u\n", v);
 	return 0;
 }
+
+static int cmd_w(char *args) {
+	WP *newwp = new_wp();
+//	newwp->oldvalue = expr(args, &flag);
+//	if (!flag) printf("make_token failed!\n");
+	int len = strlen(args);
+	if (len >= 50) {printf("The length of args is too long to store!\n"); assert(0);}
+	strncpy(newwp->expression, args, len);
+	newwp->expression[len]='\0';
+	printf("Watchpoint: NO.%d  expression:%s\n", newwp->NO, newwp->expression);
+	return 0;
+}
+
 
 static struct {
   char *name;
@@ -156,6 +169,7 @@ static struct {
 	{"info", "r: Print the infomation of states of registers. w: Print the information of states of watchpoints", cmd_info },
 	{"x", "'x N EXPR' means print value of address from EXPR lasting N*4 Bytes", cmd_x },
 	{"p", "'p EXPR' calculate the value of expression", cmd_p },
+	{"w", "'w EXPR' set a watchpoint that program will stop when the value of expression change", cmd_w },
 	/* TODO: Add more commands */
 
 };

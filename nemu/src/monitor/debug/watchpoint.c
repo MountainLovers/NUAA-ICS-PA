@@ -20,12 +20,9 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-WP* new_wp();
-void free_wp(WP *wp);
-
 WP* new_wp() {
   WP *p = free_;
-	if (p == NULL) assert(0);
+	if (p == NULL) {printf("There is no available in wp_pool.\n"); assert(0);}
 	free_ = p->next;
 	if (head == NULL) head = p;
 	else {
@@ -34,6 +31,8 @@ WP* new_wp() {
 		q->next = p;
 	}
 	p->next = NULL;
+	p->oldvalue = 0;
+	p->newvalue = 0;
 	return p;
 }
 
@@ -54,3 +53,20 @@ void free_wp(WP *wp) {
 	}
 }	
 
+bool check_wp() {
+	WP *pwp = head;
+	bool wpflag = true;
+	while (pwp) {
+		uint32_t vwp = expr(pwp->expression, &wpflag);
+		if (wpflag == false) {printf("Make_tokens failed!\n"); assert(0);}
+		pwp->oldvalue = pwp->newvalue;
+		pwp->newvalue = vwp;
+		if (pwp->oldvalue != pwp->newvalue) {
+//		  nemu_state = NEMU_STOP; 
+		  printf("oldvalue: %u  newvalue: %u  The value of watchpoint has changed.\n", pwp->oldvalue, pwp->newvalue);
+			return true;
+		}   
+		pwp = pwp->next;
+	}
+	return false;
+}

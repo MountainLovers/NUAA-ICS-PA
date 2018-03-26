@@ -37,7 +37,7 @@ WP* new_wp() {
 }
 
 void free_wp(WP *wp) {
-	if (wp_pool <= wp && wp <= wp_pool+NR_WP) {printf("wp's address is invalid\n"); assert(0);}
+	if (!(wp_pool <= wp && wp <= wp_pool+NR_WP)) {printf("wp's address is invalid\n"); assert(0);}
 	WP *p = head;
 	if (p == wp) head = wp->next;
 	else {

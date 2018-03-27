@@ -167,6 +167,7 @@ static int cmd_d(char *args) {
 	int n = -1;
 	if (sscanf(arg, "%d", &n) == -1) {printf("Check argument!\n"); assert(0);}
 	if (delete_wp(n) == false) {printf("Delete WP failed!\n"); assert(0);}
+	printf("NO.%d watchpoint is deleted!\n", n);
 	return 0;
 }	
 

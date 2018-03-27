@@ -73,25 +73,24 @@ static int cmd_si(char *args){
   return 0;
 }
 
-static int cmd_info(char *args){
+extern void print_wp();
+static int cmd_info(char *args) {
 	char *arg = strtok(NULL, " ");
 
-  if (arg == NULL) 
-	{
+  if (arg == NULL) {
 		printf("Please enter the arguments('r' or 'w')\n");
 		return 0;
 	}
-	if (arg[0] == 'r')
-	{
+	if (arg[0] == 'r') {
 		printf("Reg		HEX     		DEC\n");
 		for (int i=R_EAX;i<=R_EDI;i++) printf("%s		0x%06x		%d\n",regsl[i],reg_l(i),reg_l(i));
 //		for (int i=R_AX;i<=R_DI;i++) printf("%s		0x%04x\n",regsw[i],reg_w(i));
 //		for (int i=R_AL;i<=R_BH;i++) printf("%s		0x%02x\n",regsb[i],reg_b(i));
 	}
-//	else
-//		if (args[0] == 'w')
-//  	{
-//  	}
+	else if (args[0] == 'w') {
+  	print_wp();	
+	}
+	else assert(0);
   return 0;
 }
 

@@ -97,7 +97,7 @@ void print_wp() {
 		printf("%2d   ", wp_pool[i].NO);
 		if (regexec(&reg, wp_pool[i].expression, 1, &pmatch, 0) == 0) printf("b     ");
 		else printf("w     ");
-		printf("%8x    ", wp_pool[i].newvalue);
+		printf("0x%-8x  ", wp_pool[i].newvalue);
 	 	if (wp_pool[i].enable == 1) printf("y    ");else printf("n    ");
 		printf("%s\n", wp_pool[i].expression);
 	}

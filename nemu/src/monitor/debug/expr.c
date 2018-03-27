@@ -209,10 +209,10 @@ bool check_parentheses(int p, int q) {
 	return true;
 }
 
-int value(int p, int q);
+uint32_t value(int p, int q);
 
 // unary operator 
-int eval(int p, int q) {
+uint32_t eval(int p, int q) {
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);
@@ -230,7 +230,7 @@ int eval(int p, int q) {
 }
 
 // normal
-int value(int p, int q) {
+uint32_t value(int p, int q) {
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);
@@ -308,8 +308,8 @@ int value(int p, int q) {
 			return eval(p, q);
 		}
 
-		int val1 = value(p, lowest_pos-1);
-		int val2 = value(lowest_pos+1, q);
+		uint32_t val1 = value(p, lowest_pos-1);
+		uint32_t val2 = value(lowest_pos+1, q);
 		switch (tokens[lowest_pos].type) {
 			case '+': return val1 + val2;
 			case '-': return val1 - val2;

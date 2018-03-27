@@ -209,7 +209,7 @@ bool check_parentheses(int p, int q) {
 	return true;
 }
 
-uint32_t value(int p, int q);
+int value(int p, int q);
 
 // unary operator 
 int eval(int p, int q) {
@@ -230,7 +230,7 @@ int eval(int p, int q) {
 }
 
 // normal
-uint32_t value(int p, int q) {
+int value(int p, int q) {
 	if (p > q) {
 		printf("Bad expression!\n");
 		assert(0);

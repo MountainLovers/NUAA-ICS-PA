@@ -308,8 +308,8 @@ int value(int p, int q) {
 			return eval(p, q);
 		}
 
-		uint32_t val1 = value(p, lowest_pos-1);
-		uint32_t val2 = value(lowest_pos+1, q);
+		int val1 = value(p, lowest_pos-1);
+		int val2 = value(lowest_pos+1, q);
 		switch (tokens[lowest_pos].type) {
 			case '+': return val1 + val2;
 			case '-': return val1 - val2;

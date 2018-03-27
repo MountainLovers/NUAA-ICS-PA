@@ -145,7 +145,7 @@ static int cmd_p(char *args) {
 	uint8_t flag = true;
 	uint32_t v = expr(args, &flag);
 	if (!flag) printf("make_token failed!\n");
-	else printf("result = %u\n", v);
+	else printf("result = %d\n", v);
 	return 0;
 }
 

@@ -57,6 +57,7 @@ void free_wp(WP *wp) {
 
 bool check_wp() {
 	WP *pwp = head;
+	bool flag = false;
 	bool wpflag = true;
 	while (pwp) {
 		uint32_t vwp = expr(pwp->expression, &wpflag);
@@ -64,13 +65,12 @@ bool check_wp() {
 		pwp->oldvalue = pwp->newvalue;
 		pwp->newvalue = vwp;
 		if (pwp->oldvalue != pwp->newvalue) {
-//		  nemu_state = NEMU_STOP; 
 		  printf("oldvalue: %u  newvalue: %u  The value of watchpoint has changed.\n", pwp->oldvalue, pwp->newvalue);
-			return true;
+			flag = true;
 		}   
 		pwp = pwp->next;
 	}
-	return false;
+	return flag;
 }
 
 bool delete_wp(int n) {

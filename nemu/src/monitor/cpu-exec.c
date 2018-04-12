@@ -6,11 +6,13 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INSTR_TO_PRINT 10
+#define MAX_INSTR_TO_PRINT 15
 
 int nemu_state = NEMU_STOP;
 
 void exec_wrapper(bool);
+
+extern bool check_wp();
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
@@ -29,7 +31,7 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
-
+		if (check_wp() == true) nemu_state = NEMU_STOP;
 #endif
 
 #ifdef HAS_IOE

@@ -3,7 +3,7 @@ INC_DIR += ./include
 BUILD_DIR ?= ./build
 OBJ_DIR ?= $(BUILD_DIR)/obj
 BINARY ?= $(BUILD_DIR)/$(NAME)
-
+SHELLCMD = `find -name *.c -or -name *.h | xargs cat | grep -v ^$$ | wc -l`
 include Makefile.git
 
 .DEFAULT_GOAL = app
@@ -29,7 +29,7 @@ $(OBJ_DIR)/%.o: src/%.c
 
 # Some convinient rules
 
-.PHONY: app run submit clean
+.PHONY: app run submit clean count
 app: $(BINARY)
 
 ARGS ?= -l $(BUILD_DIR)/nemu-log.txt
@@ -52,3 +52,13 @@ gdb: $(BINARY)
 
 clean: 
 	rm -rf $(BUILD_DIR)
+
+count:
+	@nownum=$(SHELLCMD);\
+	echo "ather="$$nownum;\
+	git checkout master;\
+	prenum=$(SHELLCMD);\
+	echo "before="$$prenum;\
+	cha=`expr $$nownum - $$prenum`;\
+	echo "added "$$cha;\
+	git checkout pa1;

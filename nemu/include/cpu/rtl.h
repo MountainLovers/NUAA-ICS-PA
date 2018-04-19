@@ -153,7 +153,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
 	rtl_sm(dest, 4, &t0);
   // esp <- esp + 4
 	rtl_addi(&cpu.esp, &cpu.esp, 4);
-  TODO();
+  //TODO();
 }
 
 static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {

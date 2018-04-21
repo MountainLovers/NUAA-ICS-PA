@@ -183,7 +183,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 	int shrnum = width * 4;
   while (shrnum) {
 		x = x | (x >> shrnum);
-		x = x / 2;
+		shrnum = shrnum / 2;
 	}
   uint32_t is_zero = !(x & 1);
 	rtl_set_ZF(&is_zero);	

@@ -13,8 +13,9 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-  rtl_xor(&id_dest->val, &id_dest->val, &id_src->val);
-  uint32_t flag = 0;
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t0);
+	uint32_t flag = 0;
 	rtl_set_CF(&flag);
 	rtl_set_OF(&flag);
   print_asm_template2(xor);

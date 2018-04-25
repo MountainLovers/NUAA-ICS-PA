@@ -22,3 +22,4 @@ make_EHelper(ret);
 make_EHelper(inc);
 make_EHelper(dec);
 make_EHelper(jmp);
+make_EHelper(nop);

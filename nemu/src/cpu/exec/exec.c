@@ -207,7 +207,8 @@ opcode_entry opcode_table [512] = {
 
 static make_EHelper(2byte_esc) {
   uint32_t opcode = instr_fetch(eip, 1) | 0x100;
-  decoding.opcode = opcode;
+  printf("******opcode = %x\n",opcode);
+	decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
   idex(eip, &opcode_table[opcode]);
 }

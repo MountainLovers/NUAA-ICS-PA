@@ -26,3 +26,4 @@ make_EHelper(jmp);
 make_EHelper(nop);
 make_EHelper(add);
 make_EHelper(setcc);
+make_EHelper(test);

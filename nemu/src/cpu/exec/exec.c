@@ -227,6 +227,11 @@ make_EHelper(real) {
 		printf("------------------------\n");
 
   idex(eip, &opcode_table[opcode]);
+		printf("after idex---------------------\n");
+    puts(decoding.asm_buf);
+		puts(decoding.assembly);
+		printf("------------------------\n");
+
 }
 
 static inline void update_eip(void) {

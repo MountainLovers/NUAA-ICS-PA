@@ -230,12 +230,14 @@ void exec_wrapper(bool print_flag) {
 #endif
    if (print_flag) {
     puts(decoding.asm_buf);
+		puts(decoding.assembly);
   }
  
 	decoding.seq_eip = cpu.eip;
   exec_real(&decoding.seq_eip);
   if (print_flag) {
     puts(decoding.asm_buf);
+		puts(decoding.assembly);
   }
 
 #ifdef DEBUG

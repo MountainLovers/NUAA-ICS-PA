@@ -57,9 +57,13 @@ make_EHelper(cmp) {
   rtl_set_CF(&t0);
 
   rtl_xor(&t0, &id_dest->val, &id_src->val);
+	printf("t0 = %d\n",t0);
   rtl_xor(&t1, &id_dest->val, &t2);
+	printf("t1 = %d\n",t1);
   rtl_and(&t0, &t0, &t1);
+	printf("t0 = t1 & t0 = %d\n",t0);
   rtl_msb(&t0, &t0, id_dest->width);
+	printf("rtl_msb t0 = %d\n",t0);
   rtl_set_OF(&t0);
   printf("CF=%d OF=%d\n",cpu.eflags.CF,cpu.eflags.OF);
   print_asm_template2(cmp);

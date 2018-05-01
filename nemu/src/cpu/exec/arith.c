@@ -43,7 +43,8 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-  //TODO(); 
+  //TODO();
+	printf("*ZF=%d SF=%d CF=%d OF=%d\n",cpu.eflags.ZF,cpu.eflags.SF,cpu.eflags.CF,cpu.eflags.OF); 
   rtl_sub(&t2, &id_dest->val, &id_src->val);
 	printf("dest-src=%d\n",t2);
 

@@ -63,13 +63,14 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  TODO();
-
+  //TODO();
+  id_dest->val += 1;
   print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  TODO();
+  //TODO();
+  id_dest->val -= 1;
 
   print_asm_template1(dec);
 }

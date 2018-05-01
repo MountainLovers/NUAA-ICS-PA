@@ -87,7 +87,11 @@ make_EHelper(setcc) {
 }
 
 make_EHelper(not) {
-  TODO();
+  //TODO();
+  rtlreg_t num = 0xFFFFFFFF;
+
+  rtl_xor(&t1, &id_dest->val, &num);
+	operand_write(id_dest, &t1);
 
   print_asm_template1(not);
 }

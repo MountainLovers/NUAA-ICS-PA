@@ -48,9 +48,9 @@ make_EHelper(cmp) {
 	printf("dest-src=%d\n",t2);
 
   rtl_sltu(&t3, &id_dest->val, &t2);
-  printf("dest < t1 = %d\n",t3);
+  printf("dest < t2 = %d\n",t3);
   rtl_update_ZFSF(&t2, id_dest->width);
-  printf("ZF=%d OF=%d\n",cpu.eflags.ZF,cpu.eflags.OF);
+  printf("ZF=%d SF=%d\n",cpu.eflags.ZF,cpu.eflags.SF);
   rtl_sltu(&t0, &id_dest->val, &t2);
   rtl_or(&t0, &t3, &t0);
   rtl_set_CF(&t0);

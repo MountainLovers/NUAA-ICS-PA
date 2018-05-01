@@ -25,7 +25,6 @@ make_EHelper(inc);
 make_EHelper(dec);
 make_EHelper(jmp);
 make_EHelper(nop);
-make_EHelper(add);
 make_EHelper(setcc);
 make_EHelper(test);
 make_EHelper(jcc);
@@ -33,6 +32,7 @@ make_EHelper(mul);
 make_EHelper(imul1);
 make_EHelper(imul2);
 make_EHelper(imul3);
+make_EHelper(idiv);
 
 make_EHelper(shl);
 make_EHelper(shr);

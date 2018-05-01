@@ -23,19 +23,9 @@ static inline void set_width(int width) {
 /* Instruction Decode and EXecute */
 static inline void idex(vaddr_t *eip, opcode_entry *e) {
   /* eip is pointing to the byte next to opcode */
-  if (e->decode) {
+  if (e->decode) 
     e->decode(eip);
-printf("in idex after decode---------------------\n");
-    puts(decoding.asm_buf);
-		puts(decoding.assembly);
-		printf("------------------------\n");
-	}
   e->execute(eip);
-printf("after exec---------------------\n");
-    puts(decoding.asm_buf);
-		puts(decoding.assembly);
-		printf("------------------------\n");
-
 }
 
 static make_EHelper(2byte_esc);
@@ -227,11 +217,6 @@ make_EHelper(real) {
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
   idex(eip, &opcode_table[opcode]);
-		printf("after idex---------------------\n");
-    puts(decoding.asm_buf);
-		puts(decoding.assembly);
-		printf("------------------------\n");
-
 }
 
 static inline void update_eip(void) {
@@ -243,18 +228,9 @@ void exec_wrapper(bool print_flag) {
   decoding.p = decoding.asm_buf;		//decoding: decode.h
   decoding.p += sprintf(decoding.p, "%8x:   ", cpu.eip);	//output the address
 #endif
-  if (print_flag) {
-    puts(decoding.asm_buf);
-		puts(decoding.assembly);
-  }
- 
+
 	decoding.seq_eip = cpu.eip;
   exec_real(&decoding.seq_eip);
- 
- if (print_flag) {
-    puts(decoding.asm_buf);
-		puts(decoding.assembly);
-  }
 
 #ifdef DEBUG
   int instr_len = decoding.seq_eip - cpu.eip;

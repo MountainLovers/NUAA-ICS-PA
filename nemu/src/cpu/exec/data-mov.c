@@ -50,10 +50,12 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decoding.is_operand_size_16) {
-    TODO();
+    if ((cpu.eax & 0xFFFF) < 0) cpu.edx = cpu.edx | 0xFFFF;
+		else cpu.edx = cpu.edx & 0xFFFF0000;
   }
   else {
-    TODO();
+    if (cpu.eax < 0) cpu.edx = 0xFFFFFFFF;
+		else cpu.edx = 0x00000000;
   }
 
   print_asm(decoding.is_operand_size_16 ? "cbtw" : "cwtl");

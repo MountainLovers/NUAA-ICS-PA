@@ -221,6 +221,11 @@ make_EHelper(real) {
 
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
+		printf("after set_width---------------------\n");
+    puts(decoding.asm_buf);
+		puts(decoding.assembly);
+		printf("------------------------\n");
+
   idex(eip, &opcode_table[opcode]);
 }
 

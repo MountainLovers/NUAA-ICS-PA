@@ -214,6 +214,11 @@ static make_EHelper(2byte_esc) {
 
 make_EHelper(real) {
   uint32_t opcode = instr_fetch(eip, 1);
+		printf("after instr_fetch---------------------\n");
+    puts(decoding.asm_buf);
+		puts(decoding.assembly);
+		printf("------------------------\n");
+
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
   idex(eip, &opcode_table[opcode]);
@@ -228,7 +233,7 @@ void exec_wrapper(bool print_flag) {
   decoding.p = decoding.asm_buf;		//decoding: decode.h
   decoding.p += sprintf(decoding.p, "%8x:   ", cpu.eip);	//output the address
 #endif
-   if (print_flag) {
+  if (print_flag) {
     puts(decoding.asm_buf);
 		puts(decoding.assembly);
   }

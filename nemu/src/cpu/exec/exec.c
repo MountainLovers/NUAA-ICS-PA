@@ -233,8 +233,8 @@ void exec_wrapper(bool print_flag) {
   exec_real(&decoding.seq_eip);
 
 #ifdef DEBUG
-//  int instr_len = decoding.seq_eip - cpu.eip;
-//  sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");		//control the output format
+  int instr_len = decoding.seq_eip - cpu.eip;
+  sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");		//control the output format
   strcat(decoding.asm_buf, decoding.assembly);		//decoding.assembly is the assembly instruction
   Log_write("%s\n", decoding.asm_buf);		//Log_write is a define,don't mind
   if (print_flag) {

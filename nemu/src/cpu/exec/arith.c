@@ -73,7 +73,7 @@ make_EHelper(dec) {
 	rtlreg_t num = 1;
   rtl_sub(&t0, &id_dest->val, &num);
 	operand_write(id_dest, &t0);
-
+  printf("**************\n");
 	rtl_update_ZFSF(&t0, id_dest->width);
 
   print_asm_template1(dec);

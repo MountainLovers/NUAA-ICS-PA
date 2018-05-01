@@ -64,13 +64,17 @@ make_EHelper(cmp) {
 
 make_EHelper(inc) {
   //TODO();
-  id_dest->val += 1;
+  id_dest->val = id_dest->val + 1;
   print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
   //TODO();
-  id_dest->val -= 1;
+	rtlreg_t num = 1;
+  rtl_sub(&t0, &id_dest->val, &num);
+	operand_write(id_dest, &t0);
+
+	rtl_update_ZFSF(&t0, id_dest->width);
 
   print_asm_template1(dec);
 }

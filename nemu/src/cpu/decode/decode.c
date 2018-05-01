@@ -41,7 +41,11 @@ static inline make_DopHelper(SI) {
   op->simm = instr_fetch(eip, op->width);
 	if (op->width == 1) {
 		op->simm = (op->simm << 24) >> 24;
-	}
+	} else {
+		if (decoding.is_operand_size_16) {
+			op->simm = (op->simm << 16) >> 16;
+		}
+	}	
 
 	//TODO();
 

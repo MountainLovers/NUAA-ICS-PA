@@ -234,7 +234,11 @@ void exec_wrapper(bool print_flag) {
   }
  
 	decoding.seq_eip = cpu.eip;
-  exec_real(&decoding.seq_eip);
+   if (print_flag) {
+    puts(decoding.asm_buf);
+		puts(decoding.assembly);
+  }
+ exec_real(&decoding.seq_eip);
   if (print_flag) {
     puts(decoding.asm_buf);
 		puts(decoding.assembly);

@@ -95,3 +95,20 @@ make_EHelper(not) {
 
   print_asm_template1(not);
 }
+
+make_EHelper(rol) {
+	int count = id_src->val;
+	int temp = count;
+	t0 = id_dest->val;
+	while (temp != 0) {
+		int tmpcf = (((t0 << (32 - id_dest->width * 8)) >> 31) & 0x01);
+	  t0 = (t0 << 1) + tmpcf;
+		temp--;
+  }
+	if (count == 1) {
+		if ((((t0 << (32 - id_dest->width * 8)) >> 31) & 0x01) != cpu.eflags.CF) cpu.eflags.OF = 1; else cpu.eflags.OF = 0;
+	}
+	operand_write(id_dest, &t0);
+
+	//printf_asm_template2(rol);
+}

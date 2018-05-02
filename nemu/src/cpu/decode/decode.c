@@ -45,7 +45,7 @@ static inline make_DopHelper(SI) {
 		if (decoding.is_operand_size_16) {
 			op->simm = (op->simm << 16) >> 16;
 		}
-	}	
+	}
 
 	//TODO();
 

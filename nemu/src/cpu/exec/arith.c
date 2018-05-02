@@ -92,8 +92,9 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
-
+  if (id_dest->val == 0) cpu.eflags.CF = 0; else cpu.eflags.CF = 1;
+	t0 = -id_dest->val;
+  operand_write(id_dest, &t0);
   print_asm_template1(neg);
 }
 

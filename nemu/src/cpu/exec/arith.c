@@ -51,7 +51,7 @@ make_EHelper(cmp) {
   rtl_sltu(&t3, &id_dest->val, &t2);
 //  printf("dest < t2 = %d\n",t3);
   rtl_update_ZFSF(&t2, id_dest->width);
-//  printf("ZF=%d SF=%d\n",cpu.eflags.ZF,cpu.eflags.SF);
+  printf("ZF=%d SF=%d\n",cpu.eflags.ZF,cpu.eflags.SF);
   rtl_sltu(&t0, &id_dest->val, &t2);
   rtl_or(&t0, &t3, &t0);
   rtl_set_CF(&t0);
@@ -65,7 +65,7 @@ make_EHelper(cmp) {
   rtl_msb(&t0, &t0, id_dest->width);
 //	printf("rtl_msb t0 = %d\n",t0);
   rtl_set_OF(&t0);
-//  printf("CF=%d OF=%d\n",cpu.eflags.CF,cpu.eflags.OF);
+  printf("CF=%d OF=%d\n",cpu.eflags.CF,cpu.eflags.OF);
   print_asm_template2(cmp);
 }
 

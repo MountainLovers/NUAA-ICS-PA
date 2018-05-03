@@ -25,12 +25,16 @@ void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
   int i;
   for (i = 0; i < _screen.width * _screen.height; i++) {
     fb[i] = i;
-  }
+   }
 }
 
 void _draw_sync() {
 }
 
 int _read_key() {
-  return _KEY_NONE;
+  if (inb(0x64) == 1) {
+	  return	inl(0x60) & 0x7FFF;
+	}
+	else
+		return _KEY_NONE;
 }

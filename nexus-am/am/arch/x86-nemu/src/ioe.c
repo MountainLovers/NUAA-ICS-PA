@@ -26,7 +26,7 @@ void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
 	p += x * _screen.height + y;
 	int i;
 	for (i = 0; i < h; i++) {
-		memcpy(p, &i, i);
+		memcpy(&i, p, i);
 	}
 }
 

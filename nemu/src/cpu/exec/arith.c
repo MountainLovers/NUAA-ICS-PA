@@ -117,7 +117,7 @@ make_EHelper(adc) {
   rtl_and(&t0, &t0, &t1);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
-  printf("%d %d %d %d\n",cpu.eflags.CF,cpu.eflags.OF,cpu.eflags.SF,cpu.eflags.ZF);
+	
   print_asm_template2(adc);
 }
 

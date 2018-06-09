@@ -1,6 +1,17 @@
 #include "common.h"
 #include "syscall.h"
 
+int sys_write(int fd, void *buf, int count) {
+	int i;
+	if ((fd == 1) || (fd == 2)) {
+		for (i = 0; i < count; i++) _putc(((char *)buf)[i]);
+	}
+	return count;
+}
+
+
+
+
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -13,17 +24,10 @@ _RegSet* do_syscall(_RegSet *r) {
 						_halt(SYSCALL_ARG2(r));
 						break;
 		case SYS_write:{
-
-						int i;
 						int fd = SYSCALL_ARG2(r);
 						void *buf = (void *)SYSCALL_ARG3(r);
 						int count = SYSCALL_ARG4(r);
-						if ((fd == 1) || (fd == 2)) {
-							for (i = 0; i < count; i++) {
-								_putc(((char *)buf)[i]);
-							}
-						}
-						SYSCALL_ARG1(r) = count;
+						SYSCALL_ARG1(r) = sys_write(fd, buf, count);
 						break;
 		}
     default: panic("Unhandled syscall ID = %d", a[0]);

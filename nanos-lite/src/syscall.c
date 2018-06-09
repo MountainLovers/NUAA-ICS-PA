@@ -1,7 +1,7 @@
 #include "common.h"
 #include "syscall.h"
 
-int sys_write(int fd, void *buf, int count) {
+size_t sys_write(int fd, void *buf, size_t count) {
 	int i;
 	if ((fd == 1) || (fd == 2)) {
 		for (i = 0; i < count; i++) _putc(((char *)buf)[i]);
@@ -26,7 +26,7 @@ _RegSet* do_syscall(_RegSet *r) {
 		case SYS_write:{
 						int fd = SYSCALL_ARG2(r);
 						void *buf = (void *)SYSCALL_ARG3(r);
-						int count = SYSCALL_ARG4(r);
+						size_t count = SYSCALL_ARG4(r);
 						SYSCALL_ARG1(r) = sys_write(fd, buf, count);
 						break;
 		}

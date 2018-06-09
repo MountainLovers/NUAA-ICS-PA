@@ -1,6 +1,6 @@
 #ifndef __SYSCALL_H__
 #define __SYSCALL_H__
-#include "arch.h"
+typedef struct _RegSet _RegSet;
 enum {
   SYS_none,
   SYS_open,

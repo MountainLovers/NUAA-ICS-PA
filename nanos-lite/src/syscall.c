@@ -12,6 +12,20 @@ _RegSet* do_syscall(_RegSet *r) {
 		case SYS_exit:
 						_halt(SYSCALL_ARG2(r));
 						break;
+		case SYS_write:{
+
+						int i;
+						int fd = SYSCALL_ARG2(r);
+						void *buf = (void *)SYSCALL_ARG3(r);
+						int count = SYSCALL_ARG4(r);
+						if ((fd == 1) || (fd == 2)) {
+							for (i = 0; i < count; i++) {
+								_putc(((char *)buf)[i]);
+							}
+						}
+						SYSCALL_ARG1(r) = count;
+						break;
+		}
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 

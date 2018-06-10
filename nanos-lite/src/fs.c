@@ -23,7 +23,7 @@ static Finfo file_table[] __attribute__((used)) = {
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
 extern void ramdisk_read(void *buf, off_t offset, size_t len);
-
+extern void ramdisk_write(const void *buf, off_t offset, size_t len);
 void init_fs() {
   // TODO: initialize the size of /dev/fb
 }
@@ -57,11 +57,46 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 	return len;
 }
 
-/*ssize_t fs_write(int fd, const void *buf, size_t len) {
+ssize_t fs_write(int fd, const void *buf, size_t len) {
+	int last_len = file_table[fd].size - file_table[fd].open_offset;
+	if (last_len < len) len = last_len;
+	if ((fd == 1) || (fd == 2)) {
+		int i;
+		for (i = 0; i < len; i++) _putc(((char *)buf)[i]);
+	}else{
+		ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+		file_table[fd].open_offset += len;
+	}
+	return len;
 }
 
 off_t fs_lseek(int fd, off_t offset, int whence) {
-}*/
+	int p = file_table[fd].open_offset, size = file_table[fd].size;
+	switch (whence) {
+		case SEEK_SET:
+			p = offset;
+			break;
+		case SEEK_CUR:
+			p += offset;
+			break;
+		case SEEK_END:
+			p = size + offset;
+			break;
+	}
+	if (whence == SEEK_END) {
+		file_table[fd].open_offset = p;
+		return file_table[fd].open_offset;
+	}else{
+		if (p >= 0 && p <= size) {
+			file_table[fd].open_offset = p;
+			return file_table[fd].open_offset;
+		}else{
+			if (p < 0) file_table[fd].open_offset = 0;
+			if (p > size) file_table[fd].open_offset = size+1;
+			return -1;
+		}
+	}
+}
 
 int fs_close(int fd) {
 	return 0;

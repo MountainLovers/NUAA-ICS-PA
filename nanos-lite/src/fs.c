@@ -59,6 +59,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 
 ssize_t fs_write(int fd, const void *buf, size_t len) {
 	int last_len = file_table[fd].size - file_table[fd].open_offset;
+	Log("len = %d last_len = %d", len, last_len);
 	if (last_len < len) len = last_len;
 	if ((fd == 1) || (fd == 2)) {
 		int i;

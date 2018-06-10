@@ -26,6 +26,7 @@ _RegSet* do_syscall(_RegSet *r) {
 						_halt(a[1]);
 						break;
 		case SYS_write:
+						Log("Call SYS_write!!\n");
 						SYSCALL_ARG1(r) = sys_write(a[1], (void *)a[2], a[3]);
 						break;
 		case SYS_brk:

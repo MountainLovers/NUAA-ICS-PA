@@ -46,6 +46,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 			return i;
 		}
 	}
+	Log("pathname = %s", pathname);
 	panic("fs_open failed!");
 	assert(0);
 	return -1;

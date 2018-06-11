@@ -29,7 +29,7 @@ void fb_write(const void *buf, off_t offset, size_t len) {
 void init_device() {
   _ioe_init();
 	strcpy(dispinfo, "WIDTH:400\nHEIGHT:300");
-	Log("dispinfo=%s", dispinfo);
+	Log("dispinfo:\n%s", dispinfo);
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
 }

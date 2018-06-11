@@ -37,6 +37,7 @@ size_t fs_filesz(int fd) {
 }
 
 int fs_open(const char *pathname, int flags, int mode) {
+	Log("fs_open 啦!");
 	int i;
 	for (i = 0; i < NR_FILES; i++) {
 		if (strcmp(pathname, file_table[i].name) == 0) {
@@ -50,6 +51,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 ssize_t fs_read(int fd, void *buf, size_t len) {
+	Log("fs_read 啦!");
 	switch (fd) {
 		case 0:
 		case 1:
@@ -58,9 +60,17 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 			assert(0);
 			break;
 		case FD_DISPINFO:
+			if (file_table[fd].open_offset > file_table[fd].size) {
+				panic("fs_read FD_DISPINFO WRONG!");
+			}
+			if (file_table[fd].open_offset + len > file_table[fd].size) len = file_table[fd].size - file_table[fd].open_offset;
 			dispinfo_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
+			file_table[fd].open_offset += len;
 			break;
 		default:
+			if (file_table[fd].open_offset > file_table[fd].size) {
+				panic("fs_read default wrong!");
+			}
 			if (file_table[fd].size - file_table[fd].open_offset < len) len = file_table[fd].size - file_table[fd].open_offset;
 			ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;

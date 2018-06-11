@@ -26,6 +26,7 @@ extern void ramdisk_read(void *buf, off_t offset, size_t len);
 extern void ramdisk_write(const void *buf, off_t offset, size_t len);
 extern void dispinfo_read(void *buf, off_t offset, size_t len);
 extern void fb_write(const void *buf, off_t offset, size_t len);
+extern size_t events_read(void *buf, size_t len);
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
@@ -58,6 +59,9 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
 		case 2:
 			panic("fd < 2 in fs_read");
 			assert(0);
+			break;
+		case FD_EVENTS:
+			len = events_read(buf, len);
 			break;
 		case FD_DISPINFO:
 			if (file_table[fd].open_offset > file_table[fd].size) {

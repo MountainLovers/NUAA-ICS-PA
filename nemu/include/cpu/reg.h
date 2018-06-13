@@ -50,6 +50,11 @@ typedef struct {
 			unsigned OF:1;
 		} eflags;
 	};
+	struct {
+		uint16_t limit;
+		uint32_t base;
+	}idtr;
+	uint16_t cs;
   vaddr_t eip;
 
 } CPU_state;

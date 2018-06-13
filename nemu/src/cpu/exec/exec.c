@@ -66,7 +66,7 @@ make_group(gp5,
 
   /* 0x0f 0x01*/
 make_group(gp7,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EMPTY, EMPTY, EMPTY, EX(lidt),
     EMPTY, EMPTY, EMPTY, EMPTY)
 
 /* TODO: Add more instructions!!! */
@@ -86,7 +86,7 @@ opcode_entry opcode_table [512] = {
   /* 0x2c */	IDEXW(I2a, sub, 1), IDEX(I2a, sub), EMPTY, EMPTY,
   /* 0x30 */	IDEXW(G2E, xor, 1), IDEX(G2E, xor), IDEXW(E2G, xor, 1), IDEX(E2G, xor),
   /* 0x34 */	IDEXW(I2a, xor, 1), IDEX(I2a, xor), EMPTY, EMPTY,
-  /* 0x38 */	IDEXW(G2E, cmp, 1), IDEX(G2E,cmp), EMPTY, IDEX(E2G, cmp),
+  /* 0x38 */	IDEXW(G2E, cmp, 1), IDEX(G2E,cmp), IDEXW(E2G, cmp, 1), IDEX(E2G, cmp),
   /* 0x3c */	IDEXW(I2a, cmp, 1), IDEX(I2a, cmp), EMPTY, EMPTY,
   /* 0x40 */	IDEX(r, inc), IDEX(r, inc), IDEX(r, inc), IDEX(r, inc),
   /* 0x44 */	IDEX(r, inc), IDEX(r, inc), IDEX(r, inc), IDEX(r, inc),
@@ -96,7 +96,7 @@ opcode_entry opcode_table [512] = {
   /* 0x54 */	IDEX(r, push), IDEX(r, push), IDEX(r, push), IDEX(r, push),
   /* 0x58 */	IDEX(r, pop), IDEX(r, pop), IDEX(r, pop), IDEX(r, pop),
   /* 0x5c */	IDEX(r, pop), IDEX(r, pop), IDEX(r, pop), IDEX(r, pop),
-  /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x60 */	EX(pusha), EX(popa), EMPTY, EMPTY,
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	IDEX(push_SI, push), EMPTY, IDEXW(push_SI, push, 1), EMPTY,
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -123,7 +123,7 @@ opcode_entry opcode_table [512] = {
   /* 0xc0 */	IDEXW(gp2_Ib2E, gp2, 1), IDEX(gp2_Ib2E, gp2), EMPTY, EX(ret),
   /* 0xc4 */	EMPTY, EMPTY, IDEXW(mov_I2E, mov, 1), IDEX(mov_I2E, mov),
   /* 0xc8 */	EMPTY, EX(leave), EMPTY, EMPTY,
-  /* 0xcc */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0xcc */	EMPTY, IDEXW(I, int, 1), EMPTY, EX(iret),
   /* 0xd0 */	IDEXW(gp2_1_E, gp2, 1), IDEX(gp2_1_E, gp2), IDEXW(gp2_cl2E, gp2, 1), IDEX(gp2_cl2E, gp2),
   /* 0xd4 */	EMPTY, EMPTY, EX(nemu_trap), EMPTY,
   /* 0xd8 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -231,7 +231,7 @@ void exec_wrapper(bool print_flag) {
 
 	decoding.seq_eip = cpu.eip;
   exec_real(&decoding.seq_eip);
-
+//  printf("dummy = %d\n",dummy);
 #ifdef DEBUG
   int instr_len = decoding.seq_eip - cpu.eip;
   sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");		//control the output format

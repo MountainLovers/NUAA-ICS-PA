@@ -1,38 +1,100 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-  TODO();
+  rtl_add(&t2, &id_dest->val, &id_src->val);
+  rtl_sltu(&t3, &t2, &id_dest->val);
+  operand_write(id_dest, &t2);
+
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  rtl_sltu(&t0, &t2, &id_dest->val);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_not(&t0);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
 
   print_asm_template2(add);
 }
 
 make_EHelper(sub) {
-  TODO();
+  //TODO();
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
+  rtl_sltu(&t3, &id_dest->val, &t2);
+  operand_write(id_dest, &t2);
+
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  rtl_sltu(&t0, &id_dest->val, &t2);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
 
   print_asm_template2(sub);
 }
 
 make_EHelper(cmp) {
-  TODO();
+  //TODO();
+//	printf("*ZF=%d SF=%d CF=%d OF=%d\n",cpu.eflags.ZF,cpu.eflags.SF,cpu.eflags.CF,cpu.eflags.OF); 
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
+//	printf("dest-src=%d\n",t2);
 
+  rtl_sltu(&t3, &id_dest->val, &t2);
+//  printf("dest < t2 = %d\n",t3);
+  rtl_update_ZFSF(&t2, id_dest->width);
+//  printf("ZF=%d SF=%d\n",cpu.eflags.ZF,cpu.eflags.SF);
+  rtl_sltu(&t0, &id_dest->val, &t2);
+  rtl_or(&t0, &t3, &t0);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+//	printf("t0 = %d\n",t0);
+  rtl_xor(&t1, &id_dest->val, &t2);
+//	printf("t1 = %d\n",t1);
+  rtl_and(&t0, &t0, &t1);
+//	printf("t0 = t1 & t0 = %d\n",t0);
+  rtl_msb(&t0, &t0, id_dest->width);
+//	printf("rtl_msb t0 = %d\n",t0);
+  rtl_set_OF(&t0);
+//  printf("CF=%d OF=%d\n",cpu.eflags.CF,cpu.eflags.OF);
   print_asm_template2(cmp);
 }
 
 make_EHelper(inc) {
-  TODO();
+  //TODO();
+  rtlreg_t num = 1;
 
-  print_asm_template1(inc);
+  rtl_add(&t0, &id_dest->val, &num);
+	operand_write(id_dest, &t0);
+	rtl_update_ZFSF(&t0, id_dest->width);
+  
+	print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  TODO();
+  //TODO();
+	rtlreg_t num = 1;
+
+  rtl_sub(&t0, &id_dest->val, &num);
+	operand_write(id_dest, &t0);
+	rtl_update_ZFSF(&t0, id_dest->width);
 
   print_asm_template1(dec);
 }
 
 make_EHelper(neg) {
-  TODO();
-
+  if (id_dest->val == 0) cpu.eflags.CF = 0; else cpu.eflags.CF = 1;
+	t0 = -id_dest->val;
+  operand_write(id_dest, &t0);
   print_asm_template1(neg);
 }
 

@@ -178,6 +178,8 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+
+  /* TODO: Add more commands */
   { "si", "'si [N]': Execute the program for N steps and then stop. The default value of N is 1", cmd_si },
 	{"info", "r: Print the infomation of states of registers. w: Print the information of states of watchpoints", cmd_info },
 	{"x", "'x N EXPR' means print value of address from EXPR lasting N*4 Bytes", cmd_x },
